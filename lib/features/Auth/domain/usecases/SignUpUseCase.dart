@@ -1,0 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
+import 'package:dartz/dartz.dart';
+import 'package:medical2/Core/Error/Failure.dart';
+
+import '../repositories/Repository.dart';
+
+class SignUpUseCase {
+  AuthRepository repository;
+  SignUpUseCase({required this.repository});
+  Future<Either<Failure, bool>> call({
+    required String name,
+    required bool isDoctor,
+    required String email,
+    required String password,
+  }) async {
+    return await repository.signUP(
+      email: email,
+      password: password,
+      name: name,
+      userType: isDoctor ? "doctor" : "patient",
+    );
+  }
+}
