@@ -6,10 +6,10 @@ import 'package:medical2/Core/Dio/DioHelper.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
 
 class SettingServices extends GetxService {
-  late Client client;
+  
   late NetworkInfo networkInfo;
   late InternetConnectionChecker internetConnectionChecker;
-  late DioHelper dio;
+ 
 
   Future<SettingServices> init() async {
     internetConnectionChecker = InternetConnectionChecker.createInstance();

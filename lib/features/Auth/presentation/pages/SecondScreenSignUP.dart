@@ -90,9 +90,10 @@ class SignUpScreen extends StatelessWidget {
                         }
                         if (controller.password1.text ==
                             controller.password.text) {
-                          return 'كلمة السر غير متطابقة';
+                               return null;
+                          
                         }
-                        return null;
+                       return 'كلمة السر غير متطابقة';
                       },
                       visible: controller.visible.value,
                       changeVisible: () {
@@ -105,7 +106,12 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Obx(
-                    () =>controller.isLoading.value?  MyElevatedButton(
+                    () =>controller.isLoading.value?  Center(
+                      child: CircularProgressIndicator(
+                           color:Color(0xff407BFF),
+                           
+                      ),
+                    ): MyElevatedButton(
                       controller: () {
                         if (_formKey.currentState!.validate()) {
                           controller.SignUp(
@@ -115,12 +121,7 @@ class SignUpScreen extends StatelessWidget {
                         }
                       },
                       text: "إنشاء حساب",
-                    ):  Center(
-                      child: CircularProgressIndicator(
-                           color:Color(0xff407BFF),
-                           
-                      ),
-                    ),
+                    )
                   ),
                   const SizedBox(height: 16),
                   Row(

@@ -41,12 +41,12 @@ class DoctorsPage extends StatelessWidget {
                             doctor: doctor,
                             onFavorite: () async {
                               await controller.addFavorite(
-                                doctorId: doctor.id!,
+                                doctorId: doctor.id,
                                 context: context,
                               );
                             },
                             onRating: (rating) => controller.updateRating(
-                              doctorId: doctor.id!,
+                              doctorId: doctor.id,
                               rating: rating,
                               context: context,
                             ),

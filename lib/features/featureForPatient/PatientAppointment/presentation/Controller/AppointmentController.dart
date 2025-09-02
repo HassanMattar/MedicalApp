@@ -40,7 +40,7 @@ class AppointmentsController extends GetxController with GetSingleTickerProvider
       (l) {
         showSnakeBar(
           context: context,
-          status: true,
+          status: false,
           text: mapFailureToMessage(l),
         );
         isLoadingComing.value = false;
@@ -59,7 +59,7 @@ class AppointmentsController extends GetxController with GetSingleTickerProvider
       (l) {
         showSnakeBar(
           context: context,
-          status: true,
+          status: false,
           text: mapFailureToMessage(l),
         );
         isLoadingPrevious.value = false;

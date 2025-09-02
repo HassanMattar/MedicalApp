@@ -1,38 +1,50 @@
 
 import '../../domain/entities/Users.dart';
 
-class UserModel extends User {
-  UserModel({
-    required super.id,
-    required super.username,
-    required super.email,
-    required super.firstName,
-    required super.lastName,
-    required super.userType,
-    required super.token,
-  });
+class UserModel extends UserEntity {
+  const UserModel({
+    required String token,
+    required int userId,
+    required int patientProfileId,
+    required String username,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String userType,
+  }) : super(
+          token: token,
+          userId: userId,
+          patientProfileId: patientProfileId,
+          username: username,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          userType: userType,
+        );
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['user_id'],
-      username: json['username'],
-      email: json['email'],
-      firstName: json['first_name'],
-      lastName: json['last_name'] ?? '',
-      userType: json['user_type'],
-      token: json['token'],
+      token: json["token"],
+      userId: json["user_id"],
+      patientProfileId: json["patient_profile_id"],
+      username: json["username"],
+      email: json["email"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
+      userType: json["user_type"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "user_id": id,
+      "token": token,
+      "user_id": userId,
+      "patient_profile_id": patientProfileId,
       "username": username,
       "email": email,
       "first_name": firstName,
       "last_name": lastName,
       "user_type": userType,
-      "token": token,
     };
   }
 }

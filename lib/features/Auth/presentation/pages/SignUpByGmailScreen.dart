@@ -12,7 +12,7 @@ import '../../../../Widget/MyTextFormField.dart';
 class SignUpByGmailScreen extends StatelessWidget {
   SignUpFirstController controller = Get.find<SignUpFirstController>();
   bool isDoctor;
-  
+
   SignUpByGmailScreen({Key? key, required this.isDoctor}) : super(key: key);
 
   @override
@@ -57,12 +57,16 @@ class SignUpByGmailScreen extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 20),
-                  MyElevatedButton(
-                    controller: () async {
-                     await controller.SignUp(isDoctor,context);
-                    },
-                    text: "استمر باستخدام البريد الالكتروني",
-                  ),
+                 Obx(() {
+                  return !controller.isLoading.value
+                        ? MyElevatedButton(
+                            controller: () async {
+                              await controller.SignUp(isDoctor, context);
+                            },
+                            text: "استمر باستخدام البريد الالكتروني",
+                          )
+                        : CircularProgressIndicator();
+                  }),
                   SizedBox(height: 15),
                   Center(
                     child: Row(

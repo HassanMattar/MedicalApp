@@ -9,9 +9,11 @@ class BookingAppointmentUseCase {
   AppointmentRepository repository;
   BookingAppointmentUseCase({required this.repository});
   Future<Either<Failure, bool>> call({ required String name ,
+       required int doctorId,
+
  required String phone,
   String? email ,
   required String date,required String time}) {
-    return repository.bookingAppointment(date: date, name: name, time:time,email: email, phone:phone);
+    return repository.bookingAppointment(date: date, name: name, time:time,email: email, phone:phone, doctorId: doctorId,);
   }
 }

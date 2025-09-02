@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
 
 import '../../../../../Core/Routing/Routing.dart';
 import '../../../../../Widget/ClinicDetailsCard.dart';
@@ -11,7 +12,7 @@ import '../../../../Auth/domain/entities/DoctorEntity.dart';
 
 // ignore: must_be_immutable
 class Patient_DoctorProfileScreen extends StatelessWidget {
-  Doctor doctor;
+  DoctorEntity doctor;
   Patient_DoctorProfileScreen({
     Key? key,
     required this.doctor,
@@ -31,12 +32,12 @@ class Patient_DoctorProfileScreen extends StatelessWidget {
                       child: Icon(Icons.person, size: 50),
                     ),
                     const SizedBox(height: 10),
-                    Text(doctor.name!,
+                    Text(doctor.username,
                         style:
                       TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 5),
                     StarsRating(
-                      doctorRating: doctor.rating??0,
+                      doctorRating:double.parse(doctor.averageRating) ,
                       onRating: (double rating) {},
                     ),
                     const SizedBox(height: 16),
@@ -61,7 +62,7 @@ class Patient_DoctorProfileScreen extends StatelessWidget {
               Container(
                 height: 80,
                 child: Text(
-                "${doctor.qualification}"
+                "${doctor.specialty}"
                 ),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
@@ -80,7 +81,7 @@ class Patient_DoctorProfileScreen extends StatelessWidget {
               const SizedBox(height: 12),
               MyElevatedButton(
                 controller: () {
-                  Get.toNamed(Routes.bookingAppointmentScreen);
+                  Get.toNamed(Routes.bookingAppointmentScreen,arguments: {'doctorId': doctor.id,});
                 },
               
             text:  "حجز موعد",

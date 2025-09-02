@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:medical2/Core/Widget/snakeBar.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
 
 import '../../../../../Core/Error/FailureToString.dart';
 import '../../../../Auth/domain/entities/DoctorEntity.dart';
@@ -11,8 +12,8 @@ import '../../domain/usecases/GetAllDoctorUseCase.dart';
 import '../../domain/usecases/UpDateRatingUseCase.dart';
 
 class     DoctorScreenController extends GetxController {
-  RxList<Doctor> allDoctors = <Doctor>[].obs;
-  RxList<Doctor> filteredDoctors = <Doctor>[].obs;
+  RxList<DoctorEntity> allDoctors = <DoctorEntity>[].obs;
+  RxList<DoctorEntity> filteredDoctors = <DoctorEntity>[].obs;
   TextEditingController searchController = TextEditingController();
   GetAllDoctorUseCase getAllDoctorUseCase;
   UpdateRatingUseCase updateRatingUseCase;
@@ -33,7 +34,7 @@ class     DoctorScreenController extends GetxController {
   void _onSearchChanged() {
     String searchText = searchController.text.trim();
     filteredDoctors.value = allDoctors
-        .where((doctor) => doctor.name!.contains(searchText))
+        .where((doctor) => doctor.username.contains(searchText))
         .toList();
   }
 

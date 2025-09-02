@@ -3,10 +3,10 @@ import 'package:dartz/dartz.dart';
 import 'package:medical2/Core/Error/Failure.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
-import 'package:medical2/features/Auth/data/models/Patient%20.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/PatientProfileModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/Appointment.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/repositories/PatientDetailsRepository.dart';
-
 import '../../../../../Core/TokenService/TokenService.dart';
 import '../datasources/PatientDetailsRemoteDataSource.dart';
 
@@ -37,30 +37,25 @@ class PatientDetailsRepositoryImpl extends PatientDetailsRepository {
 
   @override
   Future<Either<Failure, bool>> UpdatePersonalInformation({
-    required String email,
-    required String address,
-    required String gender,
-    required String name,
-    required String barth,
-    required String tel,
+    required PatientProfileEntity patient,
   }) async {
-    if (await networkInfo.isConnected) {
-      try {
-        bool result = await remoteDataSource.UpdatePersonalInformation(
-          email: email,
-          address: address,
-          gender: gender,
-          name: name,
-          barth: barth,
-          tel: tel,
-        );
-        return Future.value(Right(result));
-      } on ServerException {
-        return await Future.value(Left(ServerFailure()));
-      }
-    } else {
-      return Left(NetworkFailure());
+    PatientProfileModel patientModel = PatientProfileModel(email: patient.email, fullName:patient.fullName,
+    address: patient.address,dateOfBirth: patient.dateOfBirth,gender: patient.gender,
+    phoneNumber: patient.phoneNumber);
+    // if (await networkInfo.isConnected) {
+    try {
+      final profileId = await tokenService.getProfileId();
+      bool result = await remoteDataSource.UpdatePersonalInformation(
+        id: int.parse(profileId!),
+        patient: patientModel,
+      );
+      return Future.value(Right(result));
+    } on ServerException {
+      return await Future.value(Left(ServerFailure()));
     }
+    // } else {
+    //   return Left(NetworkFailure());
+    // }
   }
 
   @override
@@ -87,26 +82,28 @@ class PatientDetailsRepositoryImpl extends PatientDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, Patient>> getPersonalInfo() async {
-     if (await networkInfo.isConnected) {
-      try {
-        Patient patientInfo =
-            await remoteDataSource.getPersonalInfo();
-        return Right(patientInfo);
-      } on ServerException {
-        return await Left(ServerFailure());
-      }
-    } else {
-      return await Left(NetworkFailure());
+  Future<Either<Failure, PatientProfileEntity>> getPersonalInfo() async {
+    //   if (await networkInfo.isConnected) {
+    try {
+      String? id = await tokenService.getProfileId();
+      PatientProfileEntity patientInfo = await remoteDataSource.getPersonalInfo(
+        id: int.parse(id!),
+      );
+      return Right(patientInfo);
+    } on ServerException {
+      return await Left(ServerFailure());
     }
+    // } else {
+    //   return await Left(NetworkFailure());
+    // }
   }
-  
+
   @override
   Future<Either<Failure, bool>> getMedicalData() async {
     if (await networkInfo.isConnected) {
       try {
         await remoteDataSource.getMedicalData(
-        
+          id: int.parse(tokenService.getProfileId() as String),
         );
 
         return Future.value(Right(true));

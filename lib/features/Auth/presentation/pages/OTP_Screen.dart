@@ -65,6 +65,7 @@ class OTPScreen extends StatelessWidget {
                       email: email,
                       isComeFromSignUP: comeFromSignUP,
                       context: context,
+                      isDoctor:isDoctor
                     );
                   }, // end onSubmit
                 ),
@@ -76,6 +77,7 @@ class OTPScreen extends StatelessWidget {
                     email: email,
                     isComeFromSignUP: comeFromSignUP,
                     context: context,
+                    isDoctor: isDoctor
                   );
                 },
                 text: "استمرار",
@@ -83,11 +85,7 @@ class OTPScreen extends StatelessWidget {
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
-                  controller.submit(
-                    email: email,
-                    isComeFromSignUP: comeFromSignUP,
-                    context: context,
-                  );
+                  controller.reSend(email: email, context: context);
                 },
                 child: Text("لم يصلك الرمز؟ أعد إرسال الرمز"),
               ),

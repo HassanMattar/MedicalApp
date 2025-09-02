@@ -31,20 +31,26 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, User>> logIn({
+  Future<Either<Failure, UserEntity>> logIn({
     required String email,
     required String password,
+     required bool isDoctor,
   }) async {
     // if (!await networkInfo.isConnected) {
     //   return Left(NetworkFailure());
     // } else
     {
       try {
-        User result = await remoteDataSource.login(
+        UserEntity result = await remoteDataSource.login(
           email: email,
           password: password,
         );
-        tokenService.saveTokenAndUserType(result.token, false);
+        tokenService.saveTokenAndUserType(
+          profile_id:result.patientProfileId,
+        token: result.token,
+        isDoctor: false 
+        );
+       
         return right(result);
       } on InvalidEmailOrPasswordException {
         return Left(InvalidEmailOrPasswordFailure());
@@ -66,6 +72,7 @@ class AuthRepositoryImpl extends AuthRepository {
         email: email,
         name: name,
         password: password,
+        isDoctor: userType
       );
       return right(true);
     } on InvalidEmailOrPasswordException {

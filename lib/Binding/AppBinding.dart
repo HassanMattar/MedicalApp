@@ -104,15 +104,20 @@ class AppBinding extends Bindings {
     ///**********************SignUpController && LoginController********************************* */
 
     Get.lazyPut<LoginController>(
-      () => LoginController(loginUseCase: Get.find<LoginUseCase>()),
+      () => LoginController(loginUseCase: Get.find<LoginUseCase>(),),
+      fenix: true
+      
     );
     Get.lazyPut<SignUpController>(
       () => SignUpController(signUpUseCase: Get.find<SignUpUseCase>()),
+      fenix: true
     );
     Get.lazyPut<NewPasswordController>(
       () => NewPasswordController(
         changePasswordUseCase: Get.find<ChangePasswordUseCase>(),
+     
       ),
+         fenix: true
     );
 
     //** ___________________________________PatientDetails Feature_______________________________________    */
@@ -138,36 +143,43 @@ class AppBinding extends Bindings {
     Get.lazyPut<GetMedicalHistoryUseCase>(
       () => GetMedicalHistoryUseCase(
         repository: Get.find(),
+        
       ),
+      fenix: true
     );
     Get.lazyPut<UpdatePersonalInformationUseCase>(
       () => UpdatePersonalInformationUseCase(
         repository: Get.find(),
       ),
+       fenix: true
     );
 
     Get.lazyPut<UpdateMedicalDataUseCase>(
       () => UpdateMedicalDataUseCase(
         repository: Get.find<PatientDetailsRepository>(),
       ),
+       fenix: true
     );
     Get.lazyPut<GetPersonalInfoUseCase>(
       () => GetPersonalInfoUseCase(
         repository: Get.find(),
       ),
+       fenix: true
     );
     //**  MedicalHistoryController&& PatientInfoController && MedicalDataController */
-    Get.lazyPut<MedicalHistoryController>(
+    Get.create<MedicalHistoryController>(
       () => MedicalHistoryController(useCase: Get.find()),
+    
     );
 
-    Get.lazyPut<PatientInfoController>(
+    Get.create<PatientInfoController>(
       () => PatientInfoController(
         useCase: Get.find(),
         getInfoUseCase: Get.find(),
       ),
+      
     );
-    Get.lazyPut<MedicalDataController>(
+    Get.create<MedicalDataController>(
       () => MedicalDataController(useCase: Get.find()),
     );
 
@@ -177,6 +189,7 @@ class AppBinding extends Bindings {
       () => DoctorInPatientRemoteDataSourceImpl(
        
       ),
+         fenix: true
     );
 
     Get.lazyPut<DoctorInPatientRepositoryImpl>(
@@ -184,7 +197,10 @@ class AppBinding extends Bindings {
         remoteDataSource: Get.find(),
         networkInfo: Get.find<SettingServices>().networkInfo,
         tokenService: Get.find(),
-      ),
+
+
+        
+      ),   fenix: true
     );
     //** ___________________________________Doctor useCase_______________________________________    */
     Get.lazyPut<GetAllDoctorUseCase>(
@@ -210,7 +226,7 @@ class AppBinding extends Bindings {
 
     //** ___________________________________Doctor controller_______________________________________    */
 
-    Get.lazyPut<DoctorScreenController>(
+    Get.create<DoctorScreenController>(
       () => DoctorScreenController(
         getAllDoctorUseCase: Get.find(),
         addFavoriteUseCase: Get.find(),
@@ -218,7 +234,7 @@ class AppBinding extends Bindings {
       ),
     );
 
-    Get.lazyPut<ShowDoctorsController>(
+    Get.create<ShowDoctorsController>(
       () => ShowDoctorsController(
         getAllFavoriteDoctorUseCase: Get.find<GetAllFavoriteDoctorUseCase>(),
       ),
@@ -258,12 +274,12 @@ class AppBinding extends Bindings {
     );
 
     //*************controller  */
-    Get.lazyPut<BookingAppointmentController>(
+    Get.create<BookingAppointmentController>(
       () => BookingAppointmentController(
         bookingUseCase: Get.find<BookingAppointmentUseCase>(),
       ),
     );
-    Get.lazyPut<AppointmentsController>(
+    Get.create<AppointmentsController>(
       () => AppointmentsController(
         getPreviousAppointmentsUseCase:
             Get.find<GetPreviousAppointmentsUseCase>(),
@@ -299,12 +315,12 @@ class AppBinding extends Bindings {
     );
 
     //* controlller /
-    Get.lazyPut<AppointmentController>(
+    Get.create<AppointmentController>(
       () => AppointmentController(
         getAppointmentUseCase: Get.find<GetWaitingAppointmentUseCase>(),
       ),
     );
-    Get.lazyPut<AddNewAppointmentController>(
+    Get.create<AddNewAppointmentController>(
       () => AddNewAppointmentController(
         addNewAppointmentUseCase: Get.find<AddNewAppointmentUseCase>(),
       ),
@@ -343,13 +359,13 @@ class AppBinding extends Bindings {
     );
 
     //*******Controller ******/
-    Get.lazyPut<DoctorMyInfoController>(
+    Get.create<DoctorMyInfoController>(
       () => DoctorMyInfoController(
         getDoctorMyInfoUseCase: Get.find<GetDoctorMyInfoUseCase>(),
         updateDoctorInfoUseCase: Get.find<UpdateDoctorInfoUseCase>(),
       ),
     );
-    Get.lazyPut<MyPatientController>(
+    Get.create<MyPatientController>(
       () => MyPatientController(getMyPatientUseCase: Get.find()),
     );
     //**SugarMeasurement Feature */
@@ -373,7 +389,7 @@ class AppBinding extends Bindings {
       ),
     );
 
-    Get.lazyPut<SugarMeasurementController>(
+    Get.create<SugarMeasurementController>(
       () => SugarMeasurementController(
         addSugarMuserUseCase: Get.find<AddSugarMuserUseCase>(),
       ),

@@ -5,11 +5,12 @@ import '../../domain/entities/Users.dart';
 
 abstract class AuthRemoteDataSource {
   Future<bool> changePassword();
-  Future<User> login({required String email, required String password});
+  Future<UserEntity> login({required String email, required String password});
   Future<bool> signUp({
     required String name,
     required String password,
     required String email,
+     required String isDoctor,
   });
 }
 
@@ -21,20 +22,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<User> login({required String email, required String password}) async {
+  Future<UserEntity> login({required String email, required String password}) async {
     try {
       final response = await DioHelper.postData(
-        url: "/token/",
+        url: "/token/auth/",
         data: {
-  "email": "44@gmail.com",
-  "password": "47"
+  "username_or_email": email,
+  "password": password
 },
-      );
-      print("response:____________-_ $response");
+    );
+      print("*************************$response******************************");
       if (response.statusCode == 200) {
-        return UserModel.fromJson(response.data);
+        return  UserModel.fromJson(response.data);
       } else {
-        throw InvalidEmailOrPasswordException();
+        throw InvalidEmailOrPasswordException(); 
       }
     } catch (err) {
       print("*******$err ***************");
@@ -47,25 +48,30 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String name,
     required String password,
     required String email,
+     required String isDoctor,
   }) async {
     try {
+      print("***************************************************$isDoctor");
       final response = await DioHelper.postData(
         url: "/users/",
         data: {
-          "password": "12055",
-          "full_name": "ibqqraheem",
-          "email": "44wwwwwcom",
+  "email": email,
+  "password":password,
+  "role": isDoctor,
+  "username": name,
         },
       );
-      print(response);
-      if (response.statusCode == 200) {
+      print("***************$response*******************");
+      if (response.statusCode == 201) {
         return true;
-      } else {
-        throw DataErrorException();
+      }else{
+         throw DataErrorException();
       }
+     
     } catch (err) {
-      print(err);
-      throw DataErrorException();
+
+      print("*****************$err********************");
+        throw DataErrorException();
     }
   }
 }

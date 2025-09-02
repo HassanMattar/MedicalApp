@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../Auth/domain/entities/DoctorEntity.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
 
 // ignore: must_be_immutable
 class DoctorCardHomeScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class DoctorCardHomeScreen extends StatelessWidget {
     super.key,
   });
 
-  final Doctor doctor;
+  final DoctorEntity doctor;
   Function() favoriteChange;
 
   @override
@@ -31,7 +31,7 @@ class DoctorCardHomeScreen extends StatelessWidget {
                  const Icon(Icons.person_outline),
                  const SizedBox(width: 10),
                   Expanded(
-                    child: Text( doctor.name??doctor.email ,
+                    child: Text( doctor.username ,
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 
@@ -56,7 +56,7 @@ class DoctorCardHomeScreen extends StatelessWidget {
                   SizedBox(width: 2,),
                   Icon(Icons.star_outline, ),
                     SizedBox(width: 5,),
-                   Text('${doctor.rating}'),
+                   Text(doctor.averageRating),
                 ],
               ),
             ],

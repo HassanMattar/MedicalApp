@@ -4,9 +4,9 @@ import 'package:medical2/Core/Error/Failure.dart';
 import '../../../../Auth/data/models/Patient .dart';
 import '../repositories/PatientDetailsForDoctorRepository.dart';
 
-class GetPersonalInfoUseCase {
+class GetPersonalInfoForPatientInDoctorUseCase {
   PatientDetailsForDoctorRepository repository;
-  GetPersonalInfoUseCase({required this.repository});
+  GetPersonalInfoForPatientInDoctorUseCase({required this.repository});
   Future<Either<Failure, Patient>> call() {
     return repository.getPersonalInfo();
   }

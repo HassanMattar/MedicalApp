@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
 
 import '../pages/Patient_DoctorProfileScreen.dart';
 import '../../../../Auth/domain/entities/DoctorEntity.dart';
@@ -8,7 +9,7 @@ import '../../../../../Widget/StartRating.dart';
 
 // ignore: must_be_immutable
 class DoctorCard_DoctorScreen extends StatelessWidget {
-  Doctor doctor;
+  DoctorEntity doctor;
   final void Function(double rating) onRating;
     final void Function() onFavorite;
 
@@ -43,13 +44,13 @@ class DoctorCard_DoctorScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     StarsRating(
-                        doctorRating: doctor.rating??0,
+                        doctorRating:!doctor.averageRating.isEmpty? int.parse(doctor.averageRating)*0.1:0,
                         onRating: onRating),
                     Spacer(),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(doctor.name??"${doctor.email}",
+                        Text(doctor.username,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
@@ -87,7 +88,7 @@ class DoctorCard_DoctorScreen extends StatelessWidget {
                           Icon(Icons.star_outline, size: 18),
                           SizedBox(width: 4),
                           Text(
-                            '${doctor.rating}',
+                            '${doctor.averageRating}',
                             style: TextStyle(fontSize: 12),
                           ),
                         ],

@@ -227,7 +227,15 @@ List <AppointmentRequired>appointmentRequired = [
   AppointmentRequired(patientName:"محمود طوطح",time: "10:10"),
   AppointmentRequired(patientName:"محمود طوطح",time: "10:10"),];
 
-// that will coming from API
+  String convertDateFormat(String date) {
+  final parts = date.split('/'); // [day, month, year]
+  final day = parts[0];
+  final month = parts[1];
+  final year = parts[2];
+ print("xxxxxx$year-$month-$day");
+  return "$year-$month-$day"; // YYYY-MM-D
+}
+
 final List<Doctor> allDoctors = [
   Doctor(
     email: "حسن",

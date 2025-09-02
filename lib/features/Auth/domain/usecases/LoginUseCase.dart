@@ -9,10 +9,11 @@ class LoginUseCase {
   AuthRepository repository;
   LoginUseCase({required this.repository});
 
-  Future<Either<Failure, User>> call({
+  Future<Either<Failure, UserEntity>> call({
     required String email,
     required String password,
+     required bool isDoctor,
   }) async {
-    return await repository.logIn(email: email, password: password);
+    return await repository.logIn(email: email, password: password,isDoctor:isDoctor);
   }
 }

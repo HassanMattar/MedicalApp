@@ -10,10 +10,12 @@ abstract class AuthRepository {
     required String email,
     required String password,
     required String userType,
+    
   });
-  Future<Either<Failure, User>> logIn({
+  Future<Either<Failure, UserEntity>> logIn({
     required String email,
     required String password,
+     required bool isDoctor,
   });
   Future<Either<Failure, bool>> changePassword({
     required String email,

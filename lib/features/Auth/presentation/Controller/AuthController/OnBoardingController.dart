@@ -13,22 +13,13 @@ class OnBoardingController extends GetxController {
 
   void onPageChanged(int index) => currentPage.value = index;
 
-  dynamic submit()async {
-   
-     if(await _tokenService.hasToken()){
-       if (await _tokenService.isDoctor()) {
-        Get.toNamed(Routes.mainDoctor,);
-      } else {
-          Get.toNamed(Routes.mainPatient);
-      }
-     }else{
-       if (selectedRole.value == "الطبيب") {
-        Get.toNamed(Routes.login, arguments: {"isDoctor": true});
-      } else {
-          Get.toNamed(Routes.login, arguments: {"isDoctor": false});
-      }
-     }
-    
+  dynamic submit() async {
+    if (selectedRole.value == "الطبيب") {
+     
+      Get.toNamed(Routes.login, arguments: {"isDoctor": true});
+    } else {
+     
+      Get.toNamed(Routes.login, arguments: {"isDoctor": false});
     }
   }
-
+}

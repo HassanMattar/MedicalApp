@@ -25,12 +25,15 @@ class AppointmentRepositoryImpl extends AppointmentRepository {
     required String phone,
     required String date,
     required String time,
+         required int doctorId,
+
   }) async {
     if (!await networkInfo.isConnected) {
       return Left(NetworkFailure());
     } else {
       try {
         bool result = await remoteDataSource.bookingAppointment(
+          doctorId: doctorId,
           name: name,
           phone: phone,
           date: date,

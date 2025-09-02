@@ -6,6 +6,7 @@ import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
 import 'package:medical2/Core/TokenService/TokenService.dart';
 import 'package:medical2/features/Auth/domain/entities/DoctorEntity.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
 
 import '../../domain/repositories/DoctorInPatientRepository.dart';
 import '../datasources/DoctorInPatientRemoteDataSource.dart';
@@ -20,10 +21,10 @@ class DoctorInPatientRepositoryImpl extends DoctorInPatientRepository {
     required this.tokenService,
   });
   @override
-  Future<Either<Failure,  List<Doctor>>> getAllDoctor() async {
+  Future<Either<Failure,  List<DoctorEntity>>> getAllDoctor() async {
    if (await networkInfo.isConnected) {
       try {
-        List<Doctor> doctors =
+        List<DoctorEntity> doctors =
             await remoteDataSource.getAllDoctor();
         return Right(doctors);
       } on ServerException {
@@ -65,10 +66,10 @@ class DoctorInPatientRepositoryImpl extends DoctorInPatientRepository {
   }
   
   @override
-  Future<Either<Failure, List<Doctor>>> getAllFavoriteDoctor() async {
+  Future<Either<Failure, List<DoctorEntity>>> getAllFavoriteDoctor() async {
     if (await networkInfo.isConnected) {
       try {
-        List<Doctor> doctors =
+        List<DoctorEntity> doctors =
             await remoteDataSource.getAllFavoriteDoctor();
         return Right(doctors);
       } on ServerException {

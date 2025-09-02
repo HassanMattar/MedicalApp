@@ -22,6 +22,7 @@ class LoginController extends GetxController {
     final result = await loginUseCase(
       email: gmail.text,
       password: password.text,
+      isDoctor: isDoctor
     );
     result.fold(
       (l) {
@@ -35,8 +36,8 @@ class LoginController extends GetxController {
       (r) {
         print(r);
         isDoctor
-            ? Get.toNamed(Routes.mainDoctor)
-            : Get.toNamed(Routes.mainPatient);
+            ? Get.offAllNamed(Routes.mainDoctor)
+            : Get.offAllNamed(Routes.mainPatient);
       },
     );
   }

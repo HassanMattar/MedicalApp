@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +11,11 @@ import '../../../../../Widget/showBicker.dart';
 // ignore: must_be_immutable
 class BookingAppointmentScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-
+int doctorId;
+   BookingAppointmentScreen({
+    Key? key,
+    required this.doctorId,
+  }) : super(key: key);
   BookingAppointmentController controller = Get.find<BookingAppointmentController>();
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,7 @@ class BookingAppointmentScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      controller.submit(context);
+                      controller.submit(context, doctorId: doctorId,);
                     }
                   },
                   style: ElevatedButton.styleFrom(

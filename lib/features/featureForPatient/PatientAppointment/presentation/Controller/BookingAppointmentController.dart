@@ -14,8 +14,9 @@ class BookingAppointmentController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
-  void submit(context) async {
+  void submit(context,{required int doctorId}) async {
     var result = await bookingUseCase(
+      doctorId: doctorId,
       date: dateController.text,
       email: emailController.text,
       phone: phoneController.text,

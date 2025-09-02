@@ -28,5 +28,5 @@ class Routes {
 
   static var patientProfileForDoctorPage="/PatientProfileForDoctorPage";
 
-  static var patientInfoInDoctorPage="/P  atientInfoInDoctorPage";
+  static var patientInfoInDoctorPage="/PatientInfoInDoctorPage";
 }

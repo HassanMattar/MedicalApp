@@ -5,7 +5,7 @@ String mapFailureToMessage(Failure failure) {
   if (failure is UnexpectedFailure) return "هناك خطأ غير معروف";
   if (failure is InvalidEmailOrPasswordFailure) return "تأكد من أدخال البيانات بشكل صحيح";
   if (failure is ServerFailure) return "هناك خطأ في السيرفر";
-    if (failure is ServerFailure) return "تأكد من أدخال البيانات بشكل صحيح";
+    if (failure is DataErrorFailure) return "تأكد من أدخال البيانات بشكل صحيح";
 
   return "error";
 }

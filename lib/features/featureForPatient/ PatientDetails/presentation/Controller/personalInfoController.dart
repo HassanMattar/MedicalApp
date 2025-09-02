@@ -1,10 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:medical2/Core/Error/FailureToString.dart';
 import 'package:medical2/Core/Widget/snakeBar.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/usecases/GetPersonalInfoUseCase.dart';
 
 import '../../domain/usecases/UpdatePersonalInformationUseCase.dart';
@@ -23,26 +22,26 @@ class PatientInfoController extends GetxController {
 
   @override
   void onInit() async {
+    print(fullNameController.text);
     super.onInit();
+    
     var result = await getInfoUseCase();
     result.fold((l) {}, (r) {
-      fullNameController.text = r.name!;
-      addressController.text = r.address!;
-      barthDateController.text = r.dateOfBirth!;
-      phoneNumberController.text = r.phoneNumber!;
-      emailController.text = r.phoneNumber!;
+      fullNameController.text = "";
+      addressController.text = r.address ?? "";
+      barthDateController.text = r.dateOfBirth ?? "";
+      phoneNumberController.text = r.phoneNumber ?? "";
+      gender.value = r.gender ?? "ذكر";
+      emailController.text ="";
     });
   }
 
-
   Future<void> submit(context) async {
     var result = await useCase(
-      email: emailController.text,
-      address: addressController.text,
-      gender: gender.value,
-      name: fullNameController.text,
-      barth: barthDateController.text,
-      tel: phoneNumberController.text,
+      patient: PatientProfileEntity(fullName: fullNameController.text, email: emailController.text,address:addressController.text,
+      dateOfBirth:  barthDateController.text,
+      phoneNumber:phoneNumberController.text, 
+      gender: gender.value,  ),
     );
 
     result.fold(

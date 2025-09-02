@@ -59,7 +59,6 @@ void emailOtpConfig() {
    otpLength: 4,
     );
 }
-
 Future InitialSettingServices() async {
  await Get.putAsync(
     () => SettingServices().init(),

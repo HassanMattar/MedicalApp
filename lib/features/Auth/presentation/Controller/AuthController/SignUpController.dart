@@ -28,6 +28,7 @@ class SignUpController extends GetxController {
 
     result.fold(
       (l) {
+         isLoading.value = false;
         showSnakeBar(
           status: false,
           text: mapFailureToMessage(l),
@@ -35,12 +36,13 @@ class SignUpController extends GetxController {
         );
       },
       (r) {
+         isLoading.value = false;
          showSnakeBar(
           status: true,
           text: "تمت العملية بنجاح ",
           context: context,
         );
-        Get.toNamed(Routes.login, arguments: {'isDoctor': isDoctor});
+        Get.offAllNamed(Routes.login, arguments: {'isDoctor': isDoctor});
       },
     );
   }

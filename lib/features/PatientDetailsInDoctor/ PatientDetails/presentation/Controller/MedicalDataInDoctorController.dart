@@ -7,7 +7,7 @@ class MedicalDataPatientForDoctorController extends GetxController {
   RxString diabetesType = 'النوع الأول'.obs;
   TextEditingController descriptionController = TextEditingController();
   RxList files = [].obs;
-  GetMedicalDataUseCase useCase;
+  GetMedicalDataForPatientInDoctorUseCase useCase;
   MedicalDataPatientForDoctorController({required this.useCase});
 
   @override

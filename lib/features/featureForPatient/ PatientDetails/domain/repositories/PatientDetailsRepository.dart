@@ -1,17 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:medical2/Core/Error/Failure.dart';
-import 'package:medical2/features/Auth/data/models/Patient%20.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import '../entities/Appointment.dart';
 
 abstract class PatientDetailsRepository {
   Future<Either<Failure, List<Appointment>>> GetMedicalHistory();
   Future<Either<Failure, bool>> UpdatePersonalInformation({
-    required String email,
-    required String address,
-    required String gender,
-    required String name,
-    required String barth,
-    required String tel,
+    required PatientProfileEntity patient,
+
   });
 
   Future<Either<Failure, bool>> UpdateMedicalData({
@@ -20,7 +16,7 @@ abstract class PatientDetailsRepository {
     required String diabetesType,
   });
 
-  Future<Either<Failure, Patient>> getPersonalInfo();
+  Future<Either<Failure, PatientProfileEntity>> getPersonalInfo();
 
   Future<Either<Failure, bool>> getMedicalData();
 }

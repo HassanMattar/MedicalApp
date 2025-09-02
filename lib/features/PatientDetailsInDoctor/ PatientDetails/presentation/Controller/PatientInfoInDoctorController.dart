@@ -2,12 +2,12 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/usecases/GetPersonalInfoUseCase.dart';
+import 'package:medical2/features/PatientDetailsInDoctor/%20PatientDetails/domain/usecases/GetPersonalInfoUseCase.dart';
 
 
 class PatientInfoInDoctorController extends GetxController {
 
-  GetPersonalInfoUseCase getInfoUseCase;
+  GetPersonalInfoForPatientInDoctorUseCase getInfoUseCase;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController barthDateController = TextEditingController();

@@ -95,7 +95,9 @@ class AppPage {
  //** for Patient Page */
 
     GetPage(page: () => PatientInfoPage(), name: Routes.patientInfoPage),
-      GetPage(page: () => BookingAppointmentScreen(), name: Routes.bookingAppointmentScreen),
+      GetPage(page: () => BookingAppointmentScreen(
+        doctorId:Get.arguments['doctorId'] ,
+      ), name: Routes.bookingAppointmentScreen),
      GetPage(page: () => MedicalHistoryPage(), name: Routes.medicalHistoryPage),
        GetPage(page: () => MedicalDataScreen(), name: Routes.medicalDataScreen),
 //* ******for Doctor pages**/

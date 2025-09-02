@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../Core/constant.dart';
 
@@ -14,6 +15,12 @@ class _MainNavigationDoctorScreenState
 
   @override
   Widget build(BuildContext context) {
+       SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.white, // Fullscreen look
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     return SafeArea(
       child: Scaffold(
         body: doctorPages[_currentIndex],

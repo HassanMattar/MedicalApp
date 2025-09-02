@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../Core/constant.dart'; // Make sure patientPages is defined there
 
 class MainPatientNavigationScreen extends StatefulWidget {
@@ -40,6 +41,12 @@ class _MainPatientNavigationScreenState
 
   @override
   Widget build(BuildContext context) {
+       SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.white, // Fullscreen look
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     return SafeArea(
       child: Scaffold(
         body: PageView(children: patientPages,controller:_pageController ,),
