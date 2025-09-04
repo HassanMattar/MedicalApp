@@ -74,6 +74,9 @@ class DoctorInPatientRepositoryImpl extends DoctorInPatientRepository {
         return Right(doctors);
       } on ServerException {
         return await Left(ServerFailure());
+      }catch(err){
+                return await Left(ServerFailure());
+
       }
     } else {
       return await Left(NetworkFailure());

@@ -43,7 +43,7 @@ class _MainPatientNavigationScreenState
   Widget build(BuildContext context) {
        SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.white, // Fullscreen look
+        statusBarColor: Colors.white, 
         statusBarIconBrightness: Brightness.dark,
       ),
     );

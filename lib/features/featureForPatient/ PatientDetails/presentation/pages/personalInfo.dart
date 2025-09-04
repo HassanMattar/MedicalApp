@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical2/Core/constant.dart';
 import '../../../../../Widget/MyElevatedButton.dart';
 import '../../../../../Widget/MyTextFormField.dart';
 import '../../../../../Widget/showBicker.dart';
@@ -42,6 +43,7 @@ class PatientInfoPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   MyTextFormField(
                     controller: controller.barthDateController,
+                    validator: (value) => validatorMethod(value),
                     hintText: 'تاريخ الميلاد',
                     prefixIcon: const Icon(Icons.calendar_today),
                     onTap: () {
@@ -51,6 +53,8 @@ class PatientInfoPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   MyTextFormField(
                     hintText: 'رقم التلفون',
+                    validator: (value) => validatorMethod(value),
+
                     controller: controller.phoneNumberController,
                     textInputType: TextInputType.phone,
                   ),
@@ -58,6 +62,7 @@ class PatientInfoPage extends StatelessWidget {
                   MyTextFormField(
                     hintText: 'البريد الالكتروني',
                     controller: controller.emailController,
+                    validator: (value) => validatorMethod(value),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(
@@ -66,7 +71,7 @@ class PatientInfoPage extends StatelessWidget {
                     child: MyElevatedButton(
                       controller: () async {
                         if (_formKey.currentState!.validate()) {
-                         await controller.submit(context);
+                          await controller.submit(context);
                         }
                       },
                       text: 'حفظ',

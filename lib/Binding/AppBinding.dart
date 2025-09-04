@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 import 'package:medical2/SettingService.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/usecases/AddFilesUseCase.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/usecases/GetFilesUseCase.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/usecases/GetMedicalDataUseCase.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/presentation/Controller/personalInfoController.dart';
 import 'package:medical2/features/Auth/data/repositories/RepositoryImpl.dart';
 import 'package:medical2/features/Auth/domain/usecases/ChangePasswordUseCase.dart';
@@ -166,6 +169,24 @@ class AppBinding extends Bindings {
       ),
        fenix: true
     );
+     Get.lazyPut<AddFilesUseCase>(
+      () => AddFilesUseCase(
+        repository: Get.find(),
+      ),
+       fenix: true
+    );
+     Get.lazyPut<GetFilesUseCase>(
+      () => GetFilesUseCase(
+        repository: Get.find(),
+      ),
+       fenix: true
+    );
+     Get.lazyPut< GetMedicalDataUseCase>(
+      () =>  GetMedicalDataUseCase(
+        repository: Get.find(),
+      ),
+       fenix: true
+    );
     //**  MedicalHistoryController&& PatientInfoController && MedicalDataController */
     Get.create<MedicalHistoryController>(
       () => MedicalHistoryController(useCase: Get.find()),
@@ -176,11 +197,15 @@ class AppBinding extends Bindings {
       () => PatientInfoController(
         useCase: Get.find(),
         getInfoUseCase: Get.find(),
+
       ),
       
     );
     Get.create<MedicalDataController>(
-      () => MedicalDataController(useCase: Get.find()),
+      () => MedicalDataController(useCase: Get.find(), addFileUseCase:  Get.find(),
+      getMedicalUseCase: Get.find() ,
+      getFileUseCase: Get.find()),
+
     );
 
     //** ___________________________________Doctor Feature_______________________________________    */

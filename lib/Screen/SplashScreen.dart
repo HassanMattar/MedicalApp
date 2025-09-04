@@ -27,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
     Future.delayed(const Duration(seconds: 4), () async {
-   
       bool isLogin = await Get.find<TokenService>().hasToken();
       print("***token : $isLogin ******");
       isLogin

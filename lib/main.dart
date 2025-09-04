@@ -7,7 +7,6 @@ import 'package:medical2/Binding/AppBinding.dart';
 import 'package:medical2/SettingService.dart';
 import 'Core/Routing/Pages.dart';
 import 'Core/Routing/Routing.dart';
-
 Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
   await InitialSettingServices();
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
       locale: Locale('ar'), 
       initialRoute: Routes.splash,
       getPages: AppPage.pages,   
-
+     
       builder: (context, child) {
         return Directionality(
           textDirection: TextDirection.rtl,

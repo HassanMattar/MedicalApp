@@ -1,8 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical2/Core/constant.dart';
 import 'package:medical2/Widget/MyElevatedButton.dart';
 import 'package:medical2/Widget/buildRadio.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/FileEntity.dart';
 
 import '../Controller/MedicalDataController.dart';
 
@@ -33,39 +35,43 @@ class MedicalDataScreen extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Wrap(
-                  spacing: 10,
-                  children: [
-                    buildRadio(
-                      value: "النوع الأول",
-                      groupValue: controller.diabetesType.value,
-                      onChanged: (val) {
-                        controller.diabetesType.value = val!;
-                      },
+                Obx(
+                ()=>
+                    Wrap(
+                      spacing: 10,
+                      children: [
+                        buildRadio(
+                          value: "النوع الأول",
+                          groupValue: controller.diabetesType.value,
+                          onChanged: (val) {
+                            controller.diabetesType.value = val!;
+                          },
+                        ),
+                        buildRadio(
+                          value: "النوع الثاني",
+                          groupValue: controller.diabetesType.value,
+                          onChanged: (val) {
+                            controller.diabetesType.value = val!;
+                          },
+                        ),
+                        buildRadio(
+                          value: "سكري الحمل",
+                          groupValue: controller.diabetesType.value,
+                          onChanged: (val) {
+                            controller.diabetesType.value = val!;
+                          },
+                        ),
+                        buildRadio(
+                          value: "لا أعرف",
+                          groupValue: controller.diabetesType.value,
+                          onChanged: (val) {
+                            controller.diabetesType.value = val!;
+                          },
+                        ),
+                      ],
                     ),
-                    buildRadio(
-                      value: "النوع الثاني",
-                      groupValue: controller.diabetesType.value,
-                      onChanged: (val) {
-                        controller.diabetesType.value = val!;
-                      },
-                    ),
-                    buildRadio(
-                      value: "سكري الحمل",
-                      groupValue: controller.diabetesType.value,
-                      onChanged: (val) {
-                        controller.diabetesType.value = val!;
-                      },
-                    ),
-                    buildRadio(
-                      value: "لا أعرف",
-                      groupValue: controller.diabetesType.value,
-                      onChanged: (val) {
-                        controller.diabetesType.value = val!;
-                      },
-                    ),
-                  ],
-                ),
+                )
+                ,
                 const SizedBox(height: 20),
                 const Text(
                   "اشرح للطبيب حالتك الصحية",
@@ -79,7 +85,8 @@ class MedicalDataScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: TextFormField(
-                    controller: controller.descriptionController,
+                    controller: controller.description,
+                    validator:(value)=> validatorMethod(value),
                     maxLines: null,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -108,36 +115,70 @@ class MedicalDataScreen extends StatelessWidget {
                           vertical: 10,
                         ),
 
-                        child: Obx(
-                          () => Column(
-                            children: List.generate(
-                              controller.selectedFiles.length,
-                              (index) {
-                                final file =  controller.selectedFiles.value[index];
-                                return Card(
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 6,
-                                  ),
-                                  child: ListTile(
-                                    leading: const Icon(
-                                      Icons.picture_as_pdf,
-                                      color: Colors.red,
-                                    ),
-                                    title: Text(file.name),
-                                    trailing: IconButton(
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: Colors.red,
+                        child: Obx(() {
+                          return Column(
+                            children: [
+                               Column(
+                                 children: List.generate(
+                                  controller.getFiles.length,
+                                  (index) {
+                                    FileEntity file = controller.getFiles[index];
+                                    List url =file.fileUrl.split("/");
+                                    String fileName =url[url.length-1];
+                                    return Card(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 6,
                                       ),
-                                      onPressed: () =>
-                                          controller.removeFile(index),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                                      child: ListTile(
+                                        leading: const Icon(
+                                          Icons.picture_as_pdf,
+                                          color: Colors.red,
+                                        ),
+                                        title: Text(fileName),
+                                        trailing: IconButton(
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                          onPressed: () =>
+                                              controller.removeGetFile(index),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Column(
+                                 children: List.generate(
+                                  controller.selectedFiles.length,
+                                  (index) {
+                                    final file = controller.selectedFiles[index];
+                                    return Card(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 6,
+                                      ),
+                                      child: ListTile(
+                                        leading: const Icon(
+                                          Icons.picture_as_pdf,
+                                          color: Colors.red,
+                                        ),
+                                        title: Text(file.name),
+                                        trailing: IconButton(
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                          onPressed: () =>
+                                              controller.removeFile(index),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
                       ),
                     ),
                   ),

@@ -55,6 +55,7 @@ class SugarMeasurementScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       MyTextFormField(
+                        validator: (value)=>validatorMethod(value),
                         controller: controller.sugarMeasureController,
                         textInputType: TextInputType.number,
                         hintText: 'مستوى السكر (mg/dl)',
@@ -78,6 +79,7 @@ class SugarMeasurementScreen extends StatelessWidget {
                           ),
                           Expanded(
                             child: TextButton.icon(
+                            
                               onPressed: () => controller.pickTime(context),
                               icon: Icon(
                                 Icons.access_time,
@@ -92,6 +94,7 @@ class SugarMeasurementScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 10),
+                  controller.isLoading.value?CircularProgressIndicator():
                       MyElevatedButton(
                         controller: () {
                           controller.onSubmit(context);

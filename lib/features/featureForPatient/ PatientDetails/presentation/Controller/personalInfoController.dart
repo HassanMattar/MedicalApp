@@ -5,9 +5,7 @@ import 'package:medical2/Core/Error/FailureToString.dart';
 import 'package:medical2/Core/Widget/snakeBar.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/usecases/GetPersonalInfoUseCase.dart';
-
 import '../../domain/usecases/UpdatePersonalInformationUseCase.dart';
-
 class PatientInfoController extends GetxController {
   UpdatePersonalInformationUseCase useCase;
   GetPersonalInfoUseCase getInfoUseCase;
@@ -22,23 +20,24 @@ class PatientInfoController extends GetxController {
 
   @override
   void onInit() async {
-    print(fullNameController.text);
     super.onInit();
-    
     var result = await getInfoUseCase();
     result.fold((l) {}, (r) {
-      fullNameController.text = "";
+      fullNameController.text = r.fullName;
       addressController.text = r.address ?? "";
       barthDateController.text = r.dateOfBirth ?? "";
       phoneNumberController.text = r.phoneNumber ?? "";
       gender.value = r.gender ?? "ذكر";
-      emailController.text ="";
+      emailController.text =r.email;
     });
   }
 
   Future<void> submit(context) async {
     var result = await useCase(
-      patient: PatientProfileEntity(fullName: fullNameController.text, email: emailController.text,address:addressController.text,
+      patient: PatientProfileEntity(
+        fullName: fullNameController.text,
+       email: emailController.text,
+       address:addressController.text,
       dateOfBirth:  barthDateController.text,
       phoneNumber:phoneNumberController.text, 
       gender: gender.value,  ),
@@ -53,6 +52,7 @@ class PatientInfoController extends GetxController {
         );
       },
       (r) {
+
         showSnakeBar(
           context: context,
           status: true,

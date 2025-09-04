@@ -2,12 +2,12 @@
 class MedicalData {
 
   final String diabetesType;
-  final String conditionDescription;
- String? attachments;
+  final String medical_notes;
+
    MedicalData({
     required this.diabetesType,
-    required this.conditionDescription,
-    this.attachments,
+    required this.medical_notes,
+  
   });
 
  

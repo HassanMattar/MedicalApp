@@ -3,8 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:medical2/Core/Error/Failure.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/MedicalDataModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/PatientProfileModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/Appointment.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/FileEntity.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/MedicalData.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/repositories/PatientDetailsRepository.dart';
 import '../../../../../Core/TokenService/TokenService.dart';
@@ -39,9 +42,14 @@ class PatientDetailsRepositoryImpl extends PatientDetailsRepository {
   Future<Either<Failure, bool>> UpdatePersonalInformation({
     required PatientProfileEntity patient,
   }) async {
-    PatientProfileModel patientModel = PatientProfileModel(email: patient.email, fullName:patient.fullName,
-    address: patient.address,dateOfBirth: patient.dateOfBirth,gender: patient.gender,
-    phoneNumber: patient.phoneNumber);
+    PatientProfileModel patientModel = PatientProfileModel(
+      email: patient.email,
+      fullName: patient.fullName,
+      address: patient.address,
+      dateOfBirth: patient.dateOfBirth,
+      gender: patient.gender,
+      phoneNumber: patient.phoneNumber,
+    );
     // if (await networkInfo.isConnected) {
     try {
       final profileId = await tokenService.getProfileId();
@@ -60,25 +68,24 @@ class PatientDetailsRepositoryImpl extends PatientDetailsRepository {
 
   @override
   Future<Either<Failure, bool>> UpdateMedicalData({
-    required List<dynamic> selectedFiles,
-    required String description,
-    required String diabetesType,
+    required MedicalDataModel medicalData,
   }) async {
-    if (await networkInfo.isConnected) {
-      try {
-        await remoteDataSource.UpdateMedicalData(
-          selectedFiles: selectedFiles,
-          description: description,
-          diabetesType: diabetesType,
-        );
+    // if (await networkInfo.isConnected) {
+    try {
+      String? id = await tokenService.getProfileId();
+      await remoteDataSource.UpdateMedicalData(
+        id: int.parse(id!),
+      
+      medicalData: medicalData
+      );
 
-        return Future.value(Right(true));
-      } on ServerException {
-        return await Future.value(Left(ServerFailure()));
-      }
-    } else {
-      return Left(NetworkFailure());
+      return Future.value(Right(true));
+    } on ServerException {
+      return await Future.value(Left(ServerFailure()));
     }
+    // } else {
+    //   return Left(NetworkFailure());
+    // }
   }
 
   @override
@@ -99,19 +106,54 @@ class PatientDetailsRepositoryImpl extends PatientDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> getMedicalData() async {
-    if (await networkInfo.isConnected) {
-      try {
-        await remoteDataSource.getMedicalData(
-          id: int.parse(tokenService.getProfileId() as String),
-        );
+  Future<Either<Failure, MedicalData>> getMedicalData() async {
+    //  if (await networkInfo.isConnected) {
+    try {
+         String? id = await tokenService.getProfileId();
+    MedicalData result=  await remoteDataSource.getMedicalData(
+        id: int.parse(id!),
+      );
 
-        return Future.value(Right(true));
-      } on ServerException {
-        return await Future.value(Left(ServerFailure()));
-      }
-    } else {
-      return Left(NetworkFailure());
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
     }
+    // } else {
+    //   return Left(NetworkFailure());
+    // }
   }
+
+  @override
+  Future<Either<Failure, bool>> AddFiles({
+    required List<dynamic> selectedFiles,
+  }) async {
+    //    if (await networkInfo.isConnected) {
+    String? token = await tokenService.getToken();
+    print("2222222$token");
+    try {
+      await remoteDataSource.AddFiles(selectedFiles: selectedFiles);
+
+      return Future.value(Right(true));
+    } on ServerException {
+      return await Future.value(Left(ServerFailure()));
+    }
+    // } else {
+    //   return Left(NetworkFailure());
+    // }
+  }
+
+@override
+  Future<Either<Failure, List<FileEntity>>> GetFiles() async {
+    //    if (await networkInfo.isConnected) {
+    try {
+     final result= await remoteDataSource.GetFiles();
+      return Future.value(Right(result));
+    } on ServerException {
+      return await Future.value(Left(ServerFailure()));
+    }
+    // } else {
+    //   return Left(NetworkFailure());
+    // }
+  }
+
 }

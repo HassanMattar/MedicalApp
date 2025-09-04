@@ -1,3 +1,4 @@
+import 'package:medical2/Core/constant.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 
 class PatientProfileModel extends PatientProfileEntity {
@@ -32,7 +33,7 @@ class PatientProfileModel extends PatientProfileEntity {
       "full_name": fullName,
       "address": address,
       "gender": gender,
-      "date_of_birth": dateOfBirth,
+      "date_of_birth":dateOfBirth!.contains('/')? convertDateFormat(dateOfBirth!):dateOfBirth,
       "phone_number": phoneNumber,
       "email": email,
     };

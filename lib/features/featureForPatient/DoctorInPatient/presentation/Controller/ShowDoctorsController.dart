@@ -1,11 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medical2/Core/Widget/snakeBar.dart';
 import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
-
-import '../../../../../Core/Error/FailureToString.dart';
-import '../../../../Auth/domain/entities/DoctorEntity.dart';
 import '../../domain/usecases/GetAllFavoriteDoctorUseCase.dart';
 
 class ShowDoctorsController extends GetxController {
@@ -35,21 +31,13 @@ class ShowDoctorsController extends GetxController {
   }
 
   Future<void> getAllFavoriteDoctor(context) async {
-    isLoading.value = true;
+    isLoading.value = !isLoading.value;
     var result = await getAllFavoriteDoctorUseCase();
-    result.fold(
-      (l) {
-        showSnakeBar(
-          context: context,
-          status: false,
-          text: mapFailureToMessage(l),
-        );
-      },
-      (r) {
-        allDoctors.value = r;
-          filteredDoctors.value = r;
-        isLoading.value = false;
-      },
-    );
+    result.fold((l) {  isLoading.value = !isLoading.value;}, (r) {
+      isLoading.value = !isLoading.value;
+      allDoctors.value = r;
+      filteredDoctors.value = r;
+      isLoading.value = false;
+    });
   }
 }

@@ -23,9 +23,7 @@ class DoctorInPatientRemoteDataSourceImpl
   @override
   Future<List<DoctorEntity>> getAllDoctor() {
     try {
-
       final allDoctors = [
-          
         DoctorEntity(
           address: "",
           id: 10,
@@ -99,6 +97,7 @@ class DoctorInPatientRemoteDataSourceImpl
   Future<List<DoctorEntity>> getAllFavoriteDoctor() async {
     try {
       final response = await DioHelper.getData(url: "/doctors/favorites/");
+      print("*************$response");
       if (response.statusCode == 200) {
         return Future.value(DoctorModel.fromJsonList(response.data));
       } else {

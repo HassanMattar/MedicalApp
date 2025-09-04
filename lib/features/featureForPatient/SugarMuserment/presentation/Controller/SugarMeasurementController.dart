@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical2/Core/Error/FailureToString.dart';
+import 'package:medical2/Core/Widget/snakeBar.dart';
 import 'package:medical2/features/featureForPatient/SugarMuserment/domain/usecases/AddSugarMuserUseCase.dart';
 
 import '../../../../../Core/constant.dart';
@@ -13,7 +15,7 @@ class SugarMeasurementController extends GetxController {
   Rx<TimeOfDay> selectedTime = timeNow.obs;
   SugarMeasurementController({required this.addSugarMuserUseCase});
   final List<String> types = ['صائم', 'فاطر', 'عشوائي'];
-
+  RxBool isLoading = false.obs;
   void pickDate(context) async {
     final date = await showDatePicker(
       context: context,
@@ -34,10 +36,29 @@ class SugarMeasurementController extends GetxController {
   }
 
   void onSubmit(context) async {
- await addSugarMuserUseCase(
+    isLoading.value = !isLoading.value;
+    final result = await addSugarMuserUseCase(
       type: selectedType.value,
       date: getStringFromDate(selectedDate.value),
       time: selectedTime.value.format(context),
+    );
+    result.fold(
+      (l) {
+         isLoading.value = !isLoading.value;
+        showSnakeBar(
+          context: context,
+          status: false,
+          text: mapFailureToMessage(l),
+        );
+      },
+      (r) {
+         isLoading.value = !isLoading.value;
+        showSnakeBar(
+          context: context,
+          status: false,
+          text: "تمت العملية بنجاح",
+        );
+      },
     );
   }
 }
