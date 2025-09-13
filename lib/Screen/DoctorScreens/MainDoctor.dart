@@ -23,6 +23,7 @@ class _MainNavigationDoctorScreenState
     );
     return SafeArea(
       child: Scaffold(
+         backgroundColor: Colors.white,
         body: doctorPages[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,

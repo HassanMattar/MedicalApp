@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medical2/Core/constant.dart';
+import 'package:medical2/features/PatientDetailsInDoctor/%20PatientDetails/domain/entities/Appointment.dart';
+import 'package:medical2/features/featureForPatient/PatientAppointment/domain/entities/AppointmentEntity%20.dart';
 
-import '../../../ PatientDetails/domain/entities/Appointment.dart';
 
 class AppointmentCard extends StatelessWidget {
   const AppointmentCard({
@@ -9,11 +11,11 @@ class AppointmentCard extends StatelessWidget {
     required this.data,
   });
 
-  final Appointment data;
+  final AppointmentEntity data;
 
   @override
   Widget build(BuildContext context) {
-    String date = DateFormat('dd/MM/yyyy').format(data.date);
+   
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -30,7 +32,7 @@ class AppointmentCard extends StatelessWidget {
                   children: [
               Text(data.doctorName,
                         style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(data.specialty, style: TextStyle(fontSize: 12)),
+                    Text(data.doctorSpecialty, style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 SizedBox(width: 8),
@@ -45,8 +47,8 @@ class AppointmentCard extends StatelessWidget {
                 Text("حالة الحجز:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 Text(
-                  data.status,
-                  style: TextStyle(color: Appointment.getStatusColor( data.status)),
+                  data.statusDisplay,
+                  style: TextStyle(color: AppointmentEntity.getStatusColor( data.statusDisplay)),
                 ),
               ],
             ),
@@ -55,14 +57,14 @@ class AppointmentCard extends StatelessWidget {
               children: [
                 Text("التوقيت: "),
                 Spacer(),
-                Text(data.time),
+                Text(convert24ToArabicTime(data.appointmentTime)),
               ],
             ),
             Row(
               children: [
                 Text("تاريخ الحجز: "),
                 Spacer(),
-                Text(date),
+                Text(data.appointmentDate),
               ],
             ),
             Align(

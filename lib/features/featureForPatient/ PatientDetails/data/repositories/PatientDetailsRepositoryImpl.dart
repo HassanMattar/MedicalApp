@@ -3,9 +3,9 @@ import 'package:dartz/dartz.dart';
 import 'package:medical2/Core/Error/Failure.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/BookingAppointmentModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/MedicalDataModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/PatientProfileModel.dart';
-import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/Appointment.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/FileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/MedicalData.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
@@ -24,10 +24,10 @@ class PatientDetailsRepositoryImpl extends PatientDetailsRepository {
   });
 
   @override
-  Future<Either<Failure, List<Appointment>>> GetMedicalHistory() async {
+  Future<Either<Failure, List<BookingAppointmentModel>>> GetMedicalHistory() async {
     if (await networkInfo.isConnected) {
       try {
-        List<Appointment> medicalHistoryData =
+        List<BookingAppointmentModel> medicalHistoryData =
             await remoteDataSource.GetMedicalHistory();
         return Right(medicalHistoryData);
       } on ServerException {

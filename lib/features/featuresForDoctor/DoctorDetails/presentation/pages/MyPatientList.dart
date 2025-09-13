@@ -31,7 +31,9 @@ class PatientListPage extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Expanded(
-              child: Obx(() =>controller.isLoading.value?Center(child: CircularProgressIndicator()): ListView.separated(
+              child: Obx(() =>controller.isLoading.value?Center(
+                child: CircularProgressIndicator()): 
+             controller.filteredPatients.isEmpty?   ListView.separated(
                     itemCount: controller.filteredPatients.length,
                     separatorBuilder: (_, __) => SizedBox(height: 10),
                     itemBuilder: (context, index) {
@@ -60,7 +62,7 @@ class PatientListPage extends StatelessWidget {
                             SizedBox(height: 6),
                             Row(
                               children: [
-                                Text(patient.name!,
+                                Text(patient.fullName,
                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                                 Spacer(),
                                 Icon(Icons.visibility),
@@ -71,7 +73,6 @@ class PatientListPage extends StatelessWidget {
                             SizedBox(height: 10),
                             MyElevatedButton(
                            controller: () {
-                             
                            },
                            text: "ملف المريض ",
                             )
@@ -79,7 +80,8 @@ class PatientListPage extends StatelessWidget {
                         ),
                       );
                     },
-                  )),
+                  ):Center(child: Text("!!!لا يوجد مرضى"),))
+          
             )
           ],
         ),

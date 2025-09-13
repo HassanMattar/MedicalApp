@@ -1,46 +1,35 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_ap_constructors_first
+import 'package:dio/dio.dart';
 import 'package:medical2/Core/Dio/DioHelper.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/constant.dart';
-
-import '../../../ PatientDetails/domain/entities/Appointment.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/BookingAppointmentModel.dart';
+import 'package:medical2/features/featureForPatient/PatientAppointment/data/models/AppointmentModel%20.dart';
 
 abstract class RemoteDataSourceAppointmentInPatient {
   Future<bool> bookingAppointment({
-     required int doctorId,
-   
-    required String name,
-    String? email,
-    required String phone,
-    required String date,
-    required String time,
+    required BookingAppointmentModel appointment,
   });
-  List<Appointment> getPreviousAppointments();
-  List<Appointment> getUpComingAppointments();
+ Future< List<AppointmentModel>> getPreviousAppointments();
+  Future<List<AppointmentModel>> getUpComingAppointments();
 }
 
 class RemoteDataSourceAppointmentInPatientImpl
     extends RemoteDataSourceAppointmentInPatient {
   @override
   Future<bool> bookingAppointment({
-     required int doctorId,
-    required String name,
-    String? email,
-    required String phone,
-    required String date,
-    required String time,
+    required BookingAppointmentModel appointment,
   }) async {
-       try {
+    print(appointment.toJson());
+    appointment.appointmentDate = convertDateFormat(
+      appointment.appointmentDate,
+    );
+    appointment.appointmentTime = convertArabicTimeTo24(appointment.appointmentTime);
+    try {
       final response = await DioHelper.postData(
         url: "/appointments/",
-       
-        data:{
-  "appointment_date": convertDateFormat(date),
-  "appointment_time": time,
-  "doctor": doctorId,
-  "name":name,
-  "phoneNumber":phone,
-} ,
+
+        data: appointment.toJson(),
       );
       print("***************$response*******************");
       if (response.statusCode == 201) {
@@ -56,20 +45,33 @@ class RemoteDataSourceAppointmentInPatientImpl
   }
 
   @override
-  List<Appointment> getPreviousAppointments() {
+  Future<List<AppointmentModel>> getPreviousAppointments() async {
+  
     try {
-      return previousAppointments;
+      final response = await DioHelper.getData(url: "/appointments/past/");
+      print("*************$response");
+      if (response.statusCode == 200) {
+        return (AppointmentModel.listFromJson(response.data));
+      } else {
+        throw DioException(requestOptions: response.requestOptions);
+      }
     } catch (err) {
-      throw ServerException();
+      throw ServerException;
     }
   }
 
   @override
-  List<Appointment> getUpComingAppointments() {
+  Future<List<AppointmentModel>> getUpComingAppointments() async {
     try {
-      return [];
+      final response = await DioHelper.getData(url: "/appointments/");
+      print("*************$response");
+      if (response.statusCode == 200) {
+        return (AppointmentModel.listFromJson(response.data));
+      } else {
+        throw DioException(requestOptions: response.requestOptions);
+      }
     } catch (err) {
-      throw ServerException();
+      throw ServerException;
     }
   }
 }

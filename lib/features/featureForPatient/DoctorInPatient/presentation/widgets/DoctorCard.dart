@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorFavoriteEntity%20.dart';
 
-// ignore: must_be_immutable
 class DoctorCardHomeScreen extends StatelessWidget {
   DoctorCardHomeScreen({
     required this.doctor,
@@ -9,58 +8,55 @@ class DoctorCardHomeScreen extends StatelessWidget {
     super.key,
   });
 
-  final DoctorEntity doctor;
+  final DoctorFavoriteEntity doctor;
   Function() favoriteChange;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical:5),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.symmetric(vertical:5,horizontal: 10),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                 const Icon(Icons.person_outline),
-                 const SizedBox(width: 10),
-                  Expanded(
-                    child: Text( doctor.username ,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                
-                    const SizedBox(width: 10),
-                     IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.favorite, color: Colors.red),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-
-                children: [
-                  Icon(Icons.location_on_outlined),
+        padding: const EdgeInsets.symmetric(vertical:2,horizontal:8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+               const Icon(Icons.person_outline),
+               const SizedBox(width: 10),
+                Expanded(
+                  child: Text( doctor.fullName! ,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              
+                  const SizedBox(width: 10),
+                   TextButton(
+                  onPressed:favoriteChange,
+                  child:Text("ازالة من المفضلة",style:TextStyle(fontSize: 10)),
+                ),
+              ],
+            ),
+            const SizedBox(height:8),
+            Row(
+        
+              children: [
+                Icon(Icons.location_on_outlined),
+         
+                  Text(doctor.address??"",style:TextStyle(fontSize: 10)),
+                      SizedBox(width: 5,),
+               Icon(Icons.call,),
+              Text('${doctor.phoneNumber}',style:TextStyle(fontSize: 10)),
                   SizedBox(width: 5,),
-                    Text(doctor.address??""),
-                        SizedBox(width: 2,),
-                 Icon(Icons.call,),
-                   SizedBox(width: 5,),
-                Text('${doctor.phoneNumber}'),
-                  SizedBox(width: 2,),
-                  Icon(Icons.star_outline, ),
-                    SizedBox(width: 5,),
-                   Text(doctor.averageRating),
-                ],
-              ),
-            ],
-          ),
+                 Icon(Icons.favorite_outline_outlined,),
+              
+              Text('${doctor.favoritesCount}',style:TextStyle(fontSize: 10)),
+                 
+              ],
+            ),
+          ],
         ),
       ),
     );

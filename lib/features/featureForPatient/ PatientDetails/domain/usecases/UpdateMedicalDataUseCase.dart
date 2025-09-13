@@ -13,6 +13,7 @@ class UpdateMedicalDataUseCase {
       diabetesType: medicalDataa.diabetesType,
       medical_notes: medicalDataa.medical_notes,
     );
+    
     return repository.UpdateMedicalData(medicalData: medicalData);
   }
 }

@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:medical2/Core/Error/Failure.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
-import 'package:medical2/features/Auth/data/models/Patient%20.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import '../../../../../Core/TokenService/TokenService.dart';
 import '../../domain/repositories/PatientDetailsForDoctorRepository.dart';
 import '../datasources/PatientDetailsInDoctorRemoteDataSource.dart';
@@ -20,10 +20,10 @@ class PatientDetailsInDoctorRepositoryImpl extends PatientDetailsForDoctorReposi
 
   
   @override
-  Future<Either<Failure, Patient>> getPersonalInfo() async {
+  Future<Either<Failure, PatientProfileEntity>> getPersonalInfo() async {
      if (await networkInfo.isConnected) {
       try {
-        Patient patientInfo =
+        PatientProfileEntity patientInfo =
             await remoteDataSource.getPersonalInfo();
         return Right(patientInfo);
       } on ServerException {

@@ -4,7 +4,7 @@ class PatientProfileEntity {
   final String? gender;
   final String? dateOfBirth;
   final String? phoneNumber;
-  final String email;
+ final  String? email;
 
   const PatientProfileEntity({
     required this.fullName,
@@ -12,6 +12,6 @@ class PatientProfileEntity {
     this.gender,
     this.dateOfBirth,
     this.phoneNumber,
-    required this.email,
+   this.email,
   });
 }

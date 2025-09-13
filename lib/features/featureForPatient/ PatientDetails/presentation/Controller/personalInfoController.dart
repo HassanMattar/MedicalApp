@@ -28,7 +28,7 @@ class PatientInfoController extends GetxController {
       barthDateController.text = r.dateOfBirth ?? "";
       phoneNumberController.text = r.phoneNumber ?? "";
       gender.value = r.gender ?? "ذكر";
-      emailController.text =r.email;
+      emailController.text =r.email?? "";
     });
   }
 

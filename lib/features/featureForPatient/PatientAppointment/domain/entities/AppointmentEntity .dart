@@ -1,24 +1,24 @@
+import 'dart:ui' show Color;
 
-import 'package:flutter/material.dart';
-
-class Appointment {
+class AppointmentEntity {
+  final int id;
   final String doctorName;
-  final String specialty;
+  final String doctorSpecialty;
+  final String appointmentDate;
+  final String appointmentTime;
   final String status;
-  final DateTime date;
-  final String time;
-  final String details;
-  
-  Appointment({
-    required this.doctorName,
-    required this.specialty,
-    required this.status,
-    required this.date,
-    required this.time,
-    required this.details,
-  });
+  final String statusDisplay;
 
-  // Optional: Convert status to color
+  const AppointmentEntity({
+    required this.id,
+    required this.doctorName,
+    required this.doctorSpecialty,
+    required this.appointmentDate,
+    required this.appointmentTime,
+    required this.status,
+    required this.statusDisplay,
+  });
+   // Optional: Convert status to color
   static getStatusColor(String status) {
     switch (status) {
       case 'مقبول':

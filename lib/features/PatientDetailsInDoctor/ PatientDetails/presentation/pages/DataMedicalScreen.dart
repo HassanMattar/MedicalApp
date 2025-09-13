@@ -13,8 +13,7 @@ class MedicalDataForPatientScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("البيانات الطبية"),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+       
         elevation: 0,
         leading: const Icon(Icons.arrow_back_ios),
       ),

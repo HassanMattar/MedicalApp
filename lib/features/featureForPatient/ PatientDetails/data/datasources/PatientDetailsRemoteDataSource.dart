@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:medical2/Core/Dio/DioHelper.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/BookingAppointmentModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/FileModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/MedicalDataModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/PatientProfileModel.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/FileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/MedicalData.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
-import '../../domain/entities/Appointment.dart';
 
 abstract class PatientDetailsRemoteDataSource {
-  Future<List<Appointment>> GetMedicalHistory();
+  Future<List<BookingAppointmentModel>> GetMedicalHistory();
   Future<bool> UpdatePersonalInformation({
     required PatientProfileModel patient,
     required int id,
@@ -30,46 +30,33 @@ abstract class PatientDetailsRemoteDataSource {
 class PatientDetailsRemoteDataSourceImpl
     extends PatientDetailsRemoteDataSource {
   @override
-  Future<List<Appointment>> GetMedicalHistory() async {
-    try {
-      final response = await DioHelper.getData(url: "/users/");
+  Future<List<BookingAppointmentModel>> GetMedicalHistory() async {
+        throw UnimplementedError();
+    // try {
+    //   final response = await DioHelper.getData(url: "/users/");
 
-      print("***************$response*******************");
-      if (response.statusCode == 201) {
-        return await [
-          Appointment(
-            doctorName: "doctorName",
-            specialty: "specialty",
-            status: "status",
-            date: DateTime(2022),
-            time: "time",
-            details: "details",
-          ),
-          Appointment(
-            doctorName: "doctorName",
-            specialty: "specialty",
-            status: "status",
-            date: DateTime(2022),
-            time: "time",
-            details: "details",
-          ),
-          Appointment(
-            doctorName: "doctorName",
-            specialty: "specialty",
-            status: "status",
-            date: DateTime(2022),
-            time: "time",
-            details: "details",
-          ),
-        ];
-      }
-      throw DataErrorException();
-    } catch (err) {
-      print("*****************$err********************");
-      throw DataErrorException();
-    }
+    //   print("***************$response*******************");
+    //   if (response.statusCode == 201) {
+    //     return await [
+    //       BookingAppointmentModel(
+    //         appointmentDate: "appointmentDate",
+    //         appointmentTime: "appointmentTime",
+    //         doctor: 5,
+    //         notes: "notes",
+    //         patientName: "patientName",
+    //         patientEmail: "patientEmail",
+    //         patientPhone: "patientPhone",
+    //       ),
+    //     ];
+    //   }
+    //   throw DataErrorException();
+    // } catch (err) {
+    //   print("*****************$err********************");
+   
+    // }
   }
-@override
+
+  @override
   Future<bool> AddFiles({required List selectedFiles}) async {
     if (!selectedFiles.isEmpty) {
       try {
@@ -103,7 +90,8 @@ class PatientDetailsRemoteDataSourceImpl
       return true;
     }
   }
-    @override
+
+  @override
   Future<MedicalData> getMedicalData({required int id}) async {
     try {
       final response = await DioHelper.getData(
@@ -111,19 +99,15 @@ class PatientDetailsRemoteDataSourceImpl
       );
       print(response.data);
 
-       MedicalDataModel result = MedicalDataModel.fromJson(response.data);
+      MedicalDataModel result = MedicalDataModel.fromJson(response.data);
       return (result);
-    } on DioException catch (dioErr) {
-    print("Dio Error: ${dioErr.response?.statusCode} - ${dioErr.message}");
-    throw ServerException();
-  } catch (err) {
+    } catch (err) {
       print("****************************$err");
 
       throw ServerException();
     }
   }
 
- 
   @override
   Future<bool> UpdateMedicalData({
     required MedicalDataModel medicalData,
@@ -173,7 +157,7 @@ class PatientDetailsRemoteDataSourceImpl
     }
   }
 
- @override
+  @override
   Future<PatientProfileEntity> getPersonalInfo({required int id}) async {
     try {
       final response = await DioHelper.getData(url: "/patients/$id/");
@@ -187,8 +171,6 @@ class PatientDetailsRemoteDataSourceImpl
       throw ServerException();
     }
   }
-
-  
 
   @override
   Future<List<FileEntity>> GetFiles() async {

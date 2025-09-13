@@ -8,7 +8,7 @@ class PatientProfileModel extends PatientProfileEntity {
     String? gender,
     String? dateOfBirth,
     String? phoneNumber,
-    required String email,
+     String? email,
   }) : super(
           fullName: fullName,
           address: address,

@@ -1,43 +1,51 @@
-import 'package:medical2/features/featureForPatient/PatientAppointment/domain/entities/AppointmentEntity.dart';
+import 'package:medical2/features/featureForPatient/PatientAppointment/domain/entities/AppointmentEntity%20.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({
+    required int id,
+    required String doctorName,
+    required String doctorSpecialty,
     required String appointmentDate,
     required String appointmentTime,
-    required int doctor,
-    required String name,
-    required String phoneNumber,
-    required bool patient,
+    required String status,
+    required String statusDisplay,
   }) : super(
+          id: id,
+          doctorName: doctorName,
+          doctorSpecialty: doctorSpecialty,
           appointmentDate: appointmentDate,
           appointmentTime: appointmentTime,
-          doctor: doctor,
-          name: name,
-          phoneNumber: phoneNumber,
-          patient: patient,
+          status: status,
+          statusDisplay: statusDisplay,
         );
 
-  /// JSON → Model
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
     return AppointmentModel(
-      appointmentDate: json["appointment_date"] ?? "",
-      appointmentTime: json["appointment_time"] ?? "",
-      doctor: json["doctor"] ?? 0,
-      name: json["name"] ?? "",
-      phoneNumber: json["phoneNumber"] ?? "",
-      patient: json["patient"] ?? false,
+      id: json['id'] as int,
+      doctorName: json['doctor_name'] ?? '',
+      doctorSpecialty: json['doctor_specialty'] ?? '',
+      appointmentDate: json['appointment_date'] ?? '',
+      appointmentTime: json['appointment_time'] ?? '',
+      status: json['status'] ?? '',
+      statusDisplay: json['status_display'] ?? '',
     );
   }
 
-  /// Model → JSON
   Map<String, dynamic> toJson() {
     return {
-      "appointment_date": appointmentDate,
-      "appointment_time": appointmentTime,
-      "doctor": doctor,
-      "name": name,
-      "phoneNumber": phoneNumber,
-      "patient": patient,
+      'id': id,
+      'doctor_name': doctorName,
+      'doctor_specialty': doctorSpecialty,
+      'appointment_date': appointmentDate,
+      'appointment_time': appointmentTime,
+      'status': status,
+      'status_display': statusDisplay,
     };
   }
+
+  /// Parse list of appointments
+  static List<AppointmentModel> listFromJson(List<dynamic> list) {
+    return list.map((item) => AppointmentModel.fromJson(item)).toList();
+  }
 }
+

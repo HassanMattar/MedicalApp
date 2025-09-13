@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:medical2/features/Auth/domain/entities/DoctorEntity.dart';
-import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorListEntity.dart';
 
 // ignore: must_be_immutable
 class ClinicDetailsCard extends StatelessWidget {
    ClinicDetailsCard({super.key,required this.doctor});
 
-  DoctorEntity doctor;
+  DoctorListEntity doctor;
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +62,17 @@ class ClinicDetailsCard extends StatelessWidget {
               children:  [
                 Expanded(
                   child: InfoItem(
-                    title: doctor.username,
-                    value: "email@gmail.com",
+                    title: "البريد الالكتروني",
+                    value:doctor.email
                   ),
                 ),
                 Expanded(
-                  child: InfoItem(title: "العنوان", value: doctor.address!,),
+                  child: InfoItem(title: "العنوان", value: doctor.address,),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-             InfoItem(title: "رقم التلفون", value: doctor.phoneNumber!),
+             InfoItem(title: "رقم التلفون", value: doctor.phoneNumber),
           ],
         ),
       ),

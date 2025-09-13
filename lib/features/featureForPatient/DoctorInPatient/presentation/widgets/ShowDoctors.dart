@@ -7,7 +7,8 @@ import '../Controller/ShowDoctorsController.dart';
 class ShowDoctors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ShowDoctorsController controller = Get.find<ShowDoctorsController>()..getAllFavoriteDoctor(context);
+    ShowDoctorsController controller = Get.find<ShowDoctorsController>()
+      ..getAllFavoriteDoctor(context);
     return Column(
       children: [
         MyTextFormField(
@@ -19,21 +20,31 @@ class ShowDoctors extends StatelessWidget {
         Obx(() {
           bool isEmpty = controller.filteredDoctors.length == 0;
           bool isLoading = controller.isLoading.value;
-      return !isLoading?      Expanded(
-                      child: !isEmpty ? ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: controller.filteredDoctors.length,
-                        itemBuilder: (context, index) {
-                          final doctor = controller.filteredDoctors[index];
-                          return DoctorCardHomeScreen(
-                            doctor: doctor,
-                      favoriteChange: () {},
-                               
-                          );
-                        },
-                      ):  Center(child: Text("لا يوجد قائمة مفضلة لديك")) ,
-                    ): Expanded(child: Center(child: CircularProgressIndicator())) ;
-                   }),
+          return !isLoading
+              ? Expanded(
+                  child: !isEmpty
+                      ? ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: controller.filteredDoctors.length,
+                          itemBuilder: (context, index) {
+                            final doctor = controller.filteredDoctors[index];
+                            return DoctorCardHomeScreen(
+                              doctor: doctor,
+                              favoriteChange: () async {
+                             await   controller.removeFavorite(
+                                  context,
+                                  doctorId: doctor.id,
+                                ).then((onValue)=>{
+                                 controller.filteredDoctors.removeAt(index)
+                                });
+                              },
+                            );
+                          },
+                        )
+                      : Center(child: Text("لا يوجد قائمة مفضلة لديك")),
+                )
+              : Expanded(child: Center(child: CircularProgressIndicator()));
+        }),
       ],
     );
   }

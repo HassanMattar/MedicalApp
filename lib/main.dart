@@ -24,11 +24,16 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
        debugShowCheckedModeBanner: false,
          title: 'تطبيق طبي',
+
       initialBinding: AppBinding(),
-      locale: Locale('ar'), 
+      locale: Locale('ar'),
       initialRoute: Routes.splash,
       getPages: AppPage.pages,   
-     
+     theme: ThemeData(
+           scaffoldBackgroundColor: Colors.white,
+           bottomNavigationBarTheme:BottomNavigationBarThemeData(backgroundColor: Colors.white,elevation: 0.1) ,
+         
+     ),
       builder: (context, child) {
         return Directionality(
           textDirection: TextDirection.rtl,

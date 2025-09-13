@@ -4,10 +4,10 @@ import 'package:medical2/features/featureForPatient/%20PatientDetails/data/model
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/FileEntity.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/MedicalData.dart';
 import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
-import '../entities/Appointment.dart';
+import 'package:medical2/features/featureForPatient/PatientAppointment/domain/entities/BookingAppointmentEntity%20.dart';
 
 abstract class PatientDetailsRepository {
-  Future<Either<Failure, List<Appointment>>> GetMedicalHistory();
+  Future<Either<Failure, List<BookingAppointmentEntity>>> GetMedicalHistory();
   Future<Either<Failure, bool>> UpdatePersonalInformation({
     required PatientProfileEntity patient,
 

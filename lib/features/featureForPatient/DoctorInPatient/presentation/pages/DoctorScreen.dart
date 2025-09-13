@@ -8,7 +8,8 @@ import '../widgets/DoctorCardDoctorScreen.dart';
 class DoctorsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      final DoctorScreenController controller = Get.find<DoctorScreenController>()..getAllDoctor(context);
+    final DoctorScreenController controller = Get.find<DoctorScreenController>()
+      ..getAllDoctor(context);
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -39,12 +40,7 @@ class DoctorsPage extends StatelessWidget {
                           final doctor = controller.filteredDoctors[index];
                           return DoctorCard_DoctorScreen(
                             doctor: doctor,
-                            onFavorite: () async {
-                              await controller.addFavorite(
-                                doctorId: doctor.id,
-                                context: context,
-                              );
-                            },
+                           
                             onRating: (rating) => controller.updateRating(
                               doctorId: doctor.id,
                               rating: rating,

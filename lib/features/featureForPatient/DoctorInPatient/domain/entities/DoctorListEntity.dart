@@ -1,25 +1,21 @@
-class DoctorEntity {
-   int ?id;
+class DoctorListEntity {
+  final int id;
   final String username;
+  final String email;
   final String specialty;
   final String address;
   final String phoneNumber;
-  final String bio;
-  final String workingHours;
   final bool isAvailable;
   final String averageRating;
-  final bool isFavorited;
 
-   DoctorEntity({
-    
+  const DoctorListEntity({
+    required this.id,
     required this.username,
+    required this.email,
     required this.specialty,
     required this.address,
     required this.phoneNumber,
-    required this.bio,
-    required this.workingHours,
     required this.isAvailable,
     required this.averageRating,
-    required this.isFavorited,
   });
 }

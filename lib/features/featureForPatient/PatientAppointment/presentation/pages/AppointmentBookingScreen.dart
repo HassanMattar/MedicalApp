@@ -28,7 +28,6 @@ int doctorId;
         centerTitle: true,
         leading: const Icon(Icons.arrow_back_ios),
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
       ),
       body: SingleChildScrollView(

@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:medical2/Core/Error/FailureToString.dart';
 
 import 'package:medical2/Core/Widget/snakeBar.dart';
-import 'package:medical2/features/Auth/domain/entities/patientEntity.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 import 'package:medical2/features/featuresForDoctor/DoctorDetails/domain/usecase/GetMyPatientUseCase.dart';
 
 
 class MyPatientController extends GetxController {
-  RxList<Patient> allPatients = <Patient>[].obs;
-  RxList<Patient> filteredPatients = <Patient>[].obs;
+  RxList<PatientProfileEntity> allPatients = <PatientProfileEntity>[].obs;
+  RxList<PatientProfileEntity> filteredPatients = <PatientProfileEntity>[].obs;
   TextEditingController searchController = TextEditingController();
   GetMyPatientUseCase getMyPatientUseCase;
  
@@ -30,7 +30,7 @@ class MyPatientController extends GetxController {
   void _onSearchChanged() {
     String searchText = searchController.text.trim();
     filteredPatients.value = allPatients
-        .where((doctor) => doctor.name!.contains(searchText))
+        .where((doctor) => doctor.fullName!.contains(searchText))
         .toList();
   }
 

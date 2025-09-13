@@ -28,9 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Future.delayed(const Duration(seconds: 4), () async {
       bool isLogin = await Get.find<TokenService>().hasToken();
+   bool isDoctor=   await Get.find<TokenService>().isDoctor();
       print("***token : $isLogin ******");
       isLogin
-          ? Get.offAndToNamed(Routes.mainPatient)
+          ?{isDoctor?Get.offAndToNamed(Routes.mainPatient):Get.offAndToNamed(Routes.mainDoctor)}
           : Get.offAndToNamed(Routes.onBoarding);
     });
   }

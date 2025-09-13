@@ -22,7 +22,7 @@ class PatientInfoInDoctorController extends GetxController {
     super.onInit();
     var result = await getInfoUseCase();
     result.fold((l) {}, (r) {
-      fullNameController.text = r.name!;
+      fullNameController.text = r.fullName;
       addressController.text = r.address!;
       barthDateController.text = r.dateOfBirth!;
       phoneNumberController.text = r.phoneNumber!;

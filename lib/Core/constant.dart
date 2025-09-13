@@ -2,15 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
-import 'package:medical2/features/Auth/domain/entities/DoctorEntity.dart';
-import 'package:medical2/features/Auth/domain/entities/User.dart';
 import 'package:medical2/features/Auth/presentation/Controller/AuthController/OnBoardingController.dart';
+import 'package:medical2/features/PatientDetailsInDoctor/%20PatientDetails/domain/entities/Appointment.dart';
 
 import '../features/featuresForDoctor/DoctorDetails/presentation/pages/Doctor_MyProfilePage.dart';
 import '../Widget/buildRadio.dart';
-import '../features/Auth/domain/entities/patientEntity.dart';
-import '../features/featureForPatient/ PatientDetails/domain/entities/Appointment.dart';
 import '../features/featureForPatient/ PatientDetails/presentation/pages/PatientProfilePage.dart';
 import '../features/featureForPatient/DoctorInPatient/presentation/pages/DoctorScreen.dart';
 import '../features/featureForPatient/DoctorInPatient/presentation/pages/HomeScreen.dart';
@@ -128,89 +124,6 @@ class UserType extends StatelessWidget {
   }
 }
 
-List<Patient> patient = [
-  Patient(
-    password: 'ddd',
-    address: 'gaza',
-    email: ' ffddd',
-    name: 'حسن',
-    phoneNumber: "0567607921",
-    dateOfBirth: DateTime.now().toString(),
-    gender: "ذكر",
-  ),
-  Patient(
-    address: 'gaza',
-    email: ' ffddd',
-    password: 'ddd',
-    name: 'حسن',
-    phoneNumber: "0567607921",
-    dateOfBirth: DateTime.now().toString(),
-    gender: "ذكر",
-  ),
-  Patient(
-    address: 'gaza',
-    password: 'ddd',
-    email: ' ffddd',
-    name: 'حسن',
-    phoneNumber: "0567607921",
-    dateOfBirth: DateTime.now().toString(),
-    gender: "ذكر",
-  ),
-  Patient(
-    address: 'gaza',
-    email: ' ffddd',
-    name: 'حسن',
-    phoneNumber: "0567607921",
-    password: 'ddd',
-    dateOfBirth: DateTime.now().toString(),
-    gender: "ذكر",
-  ),
-];
-
-final List<User> users = [
-  Patient(
-    address: 'gaza',
-    email: 'حسن',
-    name: 'حسن',
-    phoneNumber: "0567607921",
-
-    dateOfBirth: DateTime.now().toString(),
-    gender: "ذكر",
-    password: 'ddd',
-  ),
-  Patient(
-    password: 'ddd',
-    address: 'gaza',
-    email: ' ffddd',
-    name: 'حسن',
-    phoneNumber: "0567607921",
-    dateOfBirth: DateTime.now().toString(),
-    gender: "ذكر",
-  ),
-  Doctor(
-    email: "حسن",
-    password: "123",
-    address: "غزة",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-    id: 11,
-  ),
-  Doctor(
-    email: "حسن",
-    password: "123",
-    address: "غزة",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-    id: 11,
-  ),
-];
-
 class AppointmentRequired {
   String patientName;
   String time;
@@ -227,6 +140,17 @@ List <AppointmentRequired>appointmentRequired = [
   AppointmentRequired(patientName:"محمود طوطح",time: "10:10"),
   AppointmentRequired(patientName:"محمود طوطح",time: "10:10"),];
 
+String convert24ToArabicTime(String time24) {
+  final inputFormat = DateFormat("HH:mm:ss");
+  final outputFormat = DateFormat("h:mma");
+
+  final parsedTime = inputFormat.parse(time24);
+  String formatted = outputFormat.format(parsedTime);
+
+  // Replace English AM/PM with Arabic
+  formatted = formatted.replaceAll("AM", "ص").replaceAll("PM", "م");
+  return formatted;
+}
   String convertDateFormat(String date) {
   final parts = date.split('/'); // [day, month, year]
   final day = parts[0];
@@ -235,89 +159,29 @@ List <AppointmentRequired>appointmentRequired = [
  print("xxxxxx$year-$month-$day");
   return "$year-$month-$day"; // YYYY-MM-D
 }
+String convertArabicTimeTo24(String timeString) {
+  // Normalize Arabic AM/PM to English
+  timeString = timeString.replaceAll("ص", "AM").replaceAll("م", "PM");
 
-final List<Doctor> allDoctors = [
-  Doctor(
-    email: "حسن",
-    password: "123",
-    address: "غزة",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-    id: 11,
-  ),
-  Doctor(
-    email: "hassan mattar",
-    address: "غزة",
-    phoneNumber: "0567607921",
-    password: "123",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-    id: 11,
-  ),
-  Doctor(
-    email: "hassan mattar",
+  DateTime parsedTime;
 
-    id: 11,
-    address: "غزة",
-    password: "123",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-  ),
-  Doctor(
-    password: "123",
-    email: "hassan mattar",
+  // Try multiple possible formats
+  List<String> formats = [
+    "h:mm a",    // e.g. 11:04 PM
+    "h:mma",     // e.g. 11:04PM
+    "HH:mm:ss",  // e.g. 23:04:00
+    "HH:mm"      // e.g. 23:04
+  ];
 
-    address: "غزة",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-    id: 11,
-  ),
-  Doctor(
-    email: "hassan mattar",
-    address: "غزة",
-    phoneNumber: "0567607921",
-    password: "123",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    id: 11,
-    rating: 10,
-  ),
-  Doctor(
-    password: "123",
-    email: "hassan mattar",
-    id: 11,
-    address: "غزة",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-  ),
-  Doctor(
-    email: "hassan mattar",
-    id: 11,
-    address: "غزة",
-    password: "123",
-    phoneNumber: "0567607921",
-    favoriteNumber: 100,
-    qualification: "دكتور",
-    name: 'حسن مطر',
-    rating: 10,
-  ),
-];
-List<Appointment> upcomingAppointments = [
+  for (var format in formats) {
+    try {
+      parsedTime = DateFormat(format).parseStrict(timeString);
+      return DateFormat("HH:mm:ss").format(parsedTime);
+    } catch (_) {}
+  }
+
+  throw FormatException("Unsupported time format: $timeString");
+}List<Appointment> upcomingAppointments = [
   Appointment(
     doctorName: 'عبدالله العصــار',
     specialty: 'دكتور متخصص في أمراض السكر',

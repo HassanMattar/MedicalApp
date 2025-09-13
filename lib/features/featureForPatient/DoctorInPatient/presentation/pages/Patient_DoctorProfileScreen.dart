@@ -2,17 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
-import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorEntiy.dart';
-
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/entities/DoctorListEntity.dart';
 import '../../../../../Core/Routing/Routing.dart';
 import '../../../../../Widget/ClinicDetailsCard.dart';
 import '../../../../../Widget/MyElevatedButton.dart';
 import '../../../../../Widget/StartRating.dart';
-import '../../../../Auth/domain/entities/DoctorEntity.dart';
 
 // ignore: must_be_immutable
 class Patient_DoctorProfileScreen extends StatelessWidget {
-  DoctorEntity doctor;
+  DoctorListEntity doctor;
   Patient_DoctorProfileScreen({
     Key? key,
     required this.doctor,
@@ -72,7 +70,7 @@ class Patient_DoctorProfileScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed:  ()async{
-          await FlutterPhoneDirectCaller.callNumber(doctor.phoneNumber!);
+          await FlutterPhoneDirectCaller.callNumber(doctor.phoneNumber);
 } ,
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(48)),

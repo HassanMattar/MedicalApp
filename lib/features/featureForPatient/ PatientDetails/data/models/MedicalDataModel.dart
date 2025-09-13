@@ -9,7 +9,7 @@ class MedicalDataModel extends MedicalData {
 
   factory MedicalDataModel.fromJson(Map<String, dynamic> json) {
     return MedicalDataModel(
-      diabetesType:  json['diabetesType'] as String,
+      diabetesType:  json['diabetes_type'] as String,
       medical_notes: json['medical_notes'] as String,
      
     );
@@ -17,7 +17,7 @@ class MedicalDataModel extends MedicalData {
 
   Map<String, dynamic> toJson() {
     return {
-      'diabetesType': diabetesType,
+      'diabetes_type': diabetesType,
       'medical_notes': medical_notes,
       
     };

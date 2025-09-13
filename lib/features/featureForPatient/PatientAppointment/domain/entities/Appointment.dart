@@ -1,14 +1,12 @@
-
-import 'package:flutter/material.dart';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Appointment {
-  final String doctorName;
-  final String specialty;
-  final String status;
-  final DateTime date;
-  final String time;
-  final String details;
   
+  String  doctorName;
+  String  specialty;
+ String   status;
+String    date;
+String    time;
+   String details;
   Appointment({
     required this.doctorName,
     required this.specialty,
@@ -17,6 +15,5 @@ class Appointment {
     required this.time,
     required this.details,
   });
-
- 
-}
+  
+ }

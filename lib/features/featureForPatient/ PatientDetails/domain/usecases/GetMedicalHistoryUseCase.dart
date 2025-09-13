@@ -3,14 +3,14 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:medical2/Core/Error/Failure.dart';
+import 'package:medical2/features/featureForPatient/PatientAppointment/domain/entities/BookingAppointmentEntity%20.dart';
 
-import '../entities/Appointment.dart';
 import '../repositories/PatientDetailsRepository.dart';
 
 class GetMedicalHistoryUseCase {
   PatientDetailsRepository repository;
   GetMedicalHistoryUseCase({required this.repository});
-  Future<Either<Failure, List<Appointment>>> call() {
+  Future<Either<Failure, List<BookingAppointmentEntity>>> call() {
     return repository.GetMedicalHistory();
   }
 }

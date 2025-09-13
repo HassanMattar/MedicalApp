@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating/flutter_rating.dart';
@@ -15,6 +14,7 @@ class StarsRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(doctorRating);
     return StarRating(
       size: 20,
       rating: doctorRating * 1.0,

@@ -4,7 +4,8 @@ import 'package:medical2/Core/Error/Failure.dart';
 import 'package:medical2/Core/Error/exceptions.dart';
 import 'package:medical2/Core/Network/NetworkInfo.dart';
 import 'package:medical2/Core/TokenService/TokenService.dart';
-import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/Appointment.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/data/models/BookingAppointmentModel.dart';
+import 'package:medical2/features/featureForPatient/PatientAppointment/data/models/AppointmentModel%20.dart';
 
 import '../../domain/repositories/AppointmentRepository.dart';
 import '../datasources/RemoteDataSourceAppointmentInPatient.dart';
@@ -20,12 +21,7 @@ class AppointmentRepositoryImpl extends AppointmentRepository {
   });
   @override
   Future<Either<Failure, bool>> bookingAppointment({
-    required String name,
-    String? email,
-    required String phone,
-    required String date,
-    required String time,
-         required int doctorId,
+   required  BookingAppointmentModel appointment,
 
   }) async {
     if (!await networkInfo.isConnected) {
@@ -33,11 +29,7 @@ class AppointmentRepositoryImpl extends AppointmentRepository {
     } else {
       try {
         bool result = await remoteDataSource.bookingAppointment(
-          doctorId: doctorId,
-          name: name,
-          phone: phone,
-          date: date,
-          time: time,
+          appointment: appointment
         );
 
         return right(result);
@@ -48,12 +40,12 @@ class AppointmentRepositoryImpl extends AppointmentRepository {
   }
 
   @override
-  Future<Either<Failure, List<Appointment>>> getPreviousAppointments() async {
+  Future<Either<Failure,  List<AppointmentModel>>> getPreviousAppointments() async {
     if (!await networkInfo.isConnected) {
       return Left(NetworkFailure());
     } else {
       try {
-        List<Appointment>  result = await remoteDataSource.getPreviousAppointments();
+         List<AppointmentModel>  result = await remoteDataSource.getPreviousAppointments();
 
         return right(result);
       } on ServerException {
@@ -63,12 +55,12 @@ class AppointmentRepositoryImpl extends AppointmentRepository {
   }
 
   @override
-  Future<Either<Failure, List<Appointment>>> getUpComingAppointments()async {
+  Future<Either<Failure, List<AppointmentModel>>> getUpComingAppointments()async {
       if (!await networkInfo.isConnected) {
       return Left(NetworkFailure());
     } else {
       try {
-        List<Appointment>  result = await remoteDataSource.getUpComingAppointments();
+        List<AppointmentModel>  result = await remoteDataSource.getUpComingAppointments();
 
         return right(result);
       } on ServerException {

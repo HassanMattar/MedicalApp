@@ -1,8 +1,8 @@
 import 'package:medical2/Core/Error/exceptions.dart';
-import 'package:medical2/features/Auth/data/models/Patient%20.dart';
+import 'package:medical2/features/featureForPatient/%20PatientDetails/domain/entities/patientProfileEntity.dart';
 
 abstract class PatientDetailsInDoctorRemoteDataSource {
-  Future<Patient> getPersonalInfo();
+  Future<PatientProfileEntity> getPersonalInfo();
 
   Future<bool> getMedicalData();
 }
@@ -10,18 +10,9 @@ abstract class PatientDetailsInDoctorRemoteDataSource {
 class PatientDetailsInDoctorRemoteDataSourceImpl
     extends PatientDetailsInDoctorRemoteDataSource {
   @override
-  Future<Patient> getPersonalInfo() {
+  Future<PatientProfileEntity> getPersonalInfo() {
     try {
-      Patient medicalHistoryData = Patient(
-        password: 'ddd',
-        address: 'gaza',
-        email: ' ffddd',
-        name: 'حسن',
-        phoneNumber: "0567607921",
-        dateOfBirth: DateTime.now().toString(),
-        gender: "ذكر",
-      );
-      return Future.value(medicalHistoryData);
+   throw ServerException();
     } catch (err) {
       throw ServerException();
     }

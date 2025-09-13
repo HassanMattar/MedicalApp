@@ -15,12 +15,13 @@ class DoctorMyInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("البيانات الشخصية", style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: BackButton(color: Colors.black),
+      
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -35,11 +36,13 @@ class DoctorMyInfoPage extends StatelessWidget {
                 MyTextFormField(
                   controller: controller.nameController,
                   hintText: "الاسم كامل",
+                   validator: validatorMethod,
                 ),
                 Text("العنوان"),
                 MyTextFormField(
                   validator: validatorMethod,
                   controller: controller.addressController,
+                  
                   hintText: "العنوان",
                 ),
                 Text("رقم التلفون"),
@@ -52,6 +55,7 @@ class DoctorMyInfoPage extends StatelessWidget {
                 Text("البريد الالكتروني"),
                 MyTextFormField(
                   controller: controller.emailController,
+                     validator: validatorMethod,
                   hintText: "example@email.com",
                 ),
                 Text("وقت العمل"),
@@ -68,13 +72,15 @@ class DoctorMyInfoPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(width: 10),
+                       const SizedBox(width: 5),
+                    Text("الى"),
+                    const SizedBox(width: 5),
                     Expanded(
                       child: MyTextFormField(
                         validator: validatorMethod,
                         controller: controller.toTimeController,
                         hintText: "00:00",
-                        prefixIcon: Icon(Icons.access_time),
+                        prefixIcon: Icon(Icons.access_time,),
                         onTap: () {
                           selectTime(controller.toTimeController, context);
                         },
@@ -89,26 +95,26 @@ class DoctorMyInfoPage extends StatelessWidget {
                   hintText: "اكتب مؤهلاتك العلمية بإيجاز",
                 ),
                 const SizedBox(height: 20),
-            
               ],
             ),
           ),
         ),
       ),
       bottomNavigationBar: Padding(
-    padding: const EdgeInsets.all(20),
-    child: SizedBox(
-      height: 48,
-      width: double.infinity,
-      child: MyElevatedButton(
-                    text: "حفظ",
-                    controller: () {
-                      if (formKey.currentState!.validate()) {
-                        controller.save(context);
-                      }
-                    },
-                  ),
-    ),
-    ));
+        padding: const EdgeInsets.all(20),
+        child: SizedBox(
+          height: 48,
+          width: double.infinity,
+          child: MyElevatedButton(
+            text: "حفظ",
+            controller: () {
+              if (formKey.currentState!.validate()) {
+                controller.save(context);
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -11,6 +11,7 @@ import 'package:medical2/features/Auth/domain/usecases/SignUpUseCase.dart';
 import 'package:medical2/features/Auth/presentation/Controller/AuthController/OTP_Controller.dart';
 import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/usecases/GetAllDoctorUseCase.dart';
 import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/usecases/GetAllFavoriteDoctorUseCase.dart';
+import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/usecases/RemoveFavoriteUseCase.dart';
 import 'package:medical2/features/featureForPatient/DoctorInPatient/domain/usecases/UpDateRatingUseCase.dart';
 import 'package:medical2/features/featureForPatient/PatientAppointment/data/datasources/RemoteDataSourceAppointmentInPatient.dart'
     show
@@ -238,6 +239,11 @@ class AppBinding extends Bindings {
         repository: Get.find<DoctorInPatientRepositoryImpl>(),
       ),
     );
+     Get.lazyPut<RemoveFavoriteUseCase>(
+      () => RemoveFavoriteUseCase(
+        repository: Get.find<DoctorInPatientRepositoryImpl>(),
+      ),
+    );
     Get.lazyPut<UpdateRatingUseCase>(
       () => UpdateRatingUseCase(
         repository: Get.find<DoctorInPatientRepositoryImpl>(),
@@ -262,6 +268,7 @@ class AppBinding extends Bindings {
     Get.create<ShowDoctorsController>(
       () => ShowDoctorsController(
         getAllFavoriteDoctorUseCase: Get.find<GetAllFavoriteDoctorUseCase>(),
+        removeFavoriteUseCase: Get.find< RemoveFavoriteUseCase>(),
       ),
     );
 
